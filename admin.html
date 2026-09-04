@@ -3,791 +3,243 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rinzhu Beauty - Doorstep Salon &amp; Bridal Studio</title>
+  <title>Rinzhu Beauty - District Franchise Operations & KYC Hub</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-    body { background: #0f172a; color: #f8fafc; padding-bottom: 90px; }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background:#0f172a; color:#f8fafc; padding-bottom:60px; }
 
     header {
-      background: #1e293b;
-      padding: 12px 18px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #334155;
+      background:#1e293b;
+      padding:14px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid #334155;
     }
-    .brand-wrap { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-    .header-right { display: flex; align-items: center; gap: 8px; }
+    .brand { font-size:16px; font-weight:800; color:#38bdf8; }
+    .badge-district { background:#0284c7; color:#ffffff; font-size:11px; font-weight:700; padding:4px 10px; border-radius:12px; }
 
-    .user-pill {
-      background: #064e3b;
-      color: #34d399;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 5px 10px;
-      border-radius: 20px;
-      border: 1px solid #059669;
-    }
+    .container { max-width:650px; margin:0 auto; padding:14px; }
 
-    .btn-quick-qr {
-      background: #0284c7;
-      color: #fff;
-      border: none;
-      padding: 7px 13px;
-      border-radius: 6px;
-      font-size: 11.5px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
+    .grid-stats { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+    .stat-card { background:#1e293b; border:1px solid #334155; padding:12px; border-radius:10px; }
+    .stat-card.highlight { background:linear-gradient(135deg, #0284c7, #0369a1); border:none; }
+    .stat-label { font-size:11px; color:#94a3b8; text-transform:uppercase; font-weight:600; }
+    .stat-card.highlight .stat-label { color:#bae6fd; }
+    .stat-val { font-size:20px; font-weight:800; color:#f8fafc; margin-top:4px; }
 
-    .container { max-width: 600px; margin: 0 auto; padding: 14px; }
+    .tab-bar { display:flex; background:#1e293b; border-radius:8px; padding:4px; margin-bottom:14px; border:1px solid #334155; }
+    .tab-btn { flex:1; background:transparent; border:none; color:#94a3b8; padding:9px; font-size:12px; font-weight:700; border-radius:6px; cursor:pointer; }
+    .tab-btn.active { background:#0284c7; color:#ffffff; }
 
-    /* ⭐ Live Rating Banner for Customer */
-    #customer-rating-alert {
-      display: none;
-      background: linear-gradient(135deg, #16a34a, #065f46);
-      border: 2px solid #34d399;
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
-      animation: pulseAlert 2s infinite;
+    .item-card { background:#1e293b; border:1px solid #334155; border-radius:10px; padding:14px; margin-bottom:12px; }
+    .item-top { display:flex; justify-content:space-between; border-bottom:1px solid #334155; padding-bottom:6px; margin-bottom:8px; }
+    .status-tag { font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; }
+    .tag-pending { background:#854d0e; color:#fef08a; }
+    .tag-approved { background:#166534; color:#bbf7d0; }
+
+    .partner-mini-profile {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:8px;
     }
-    @keyframes pulseAlert {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-    .rating-alert-btn {
-      background: #fff;
-      color: #065f46;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: 800;
-      font-size: 12px;
-      cursor: pointer;
-      margin-top: 8px;
-      display: inline-block;
-      text-decoration: none;
+    .partner-thumb {
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid #ec4899;
+      background:#0f172a;
+      cursor:pointer;
     }
 
-    .hero-banner {
-      background: linear-gradient(135deg, #be185d, #831843);
-      padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 14px rgba(190, 24, 93, 0.3);
-    }
-    .hero-banner h2 { font-size: 17px; color: #fff; margin-bottom: 4px; }
-    .hero-banner p { font-size: 11.5px; color: #fce7f3; line-height: 1.4; }
+    .kyc-box { background:#0f172a; border:1px solid #334155; border-radius:6px; padding:10px; margin:8px 0; font-size:11.5px; line-height:1.5; }
+    .doc-preview-link { color:#38bdf8; text-decoration:underline; cursor:pointer; font-weight:bold; margin-right:8px; }
 
-    .cat-bar {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 14px;
-      scrollbar-width: none;
-    }
-    .cat-bar::-webkit-scrollbar { display: none; }
-    .cat-chip {
-      background: #1e293b;
-      color: #94a3b8;
-      border: 1px solid #334155;
-      padding: 7px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      white-space: nowrap;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .cat-chip.active { background: #ec4899; color: #fff; border-color: #ec4899; }
-    .cat-chip.special { border: 1px solid #f59e0b; color: #fcd34d; }
-    .cat-chip.special.active { background: #d97706; color: #fff; }
+    .btn-approve { background:#16a34a; color:white; border:none; padding:7px 14px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer; }
+    .btn-reject { background:#dc2626; color:white; border:none; padding:7px 14px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer; margin-left:6px; }
 
-    .service-card {
-      background: #1e293b;
-      border: 1px solid #334155;
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .service-card.highlight {
-      border: 1.5px solid #ec4899;
-      background: linear-gradient(180deg, #1e293b, #281b2f);
-    }
-    .service-info h4 { font-size: 14px; color: #f8fafc; margin-bottom: 3px; }
-    .service-info span { font-size: 11px; color: #94a3b8; display: block; }
-    .service-info .badge-vip {
-      display: inline-block;
-      background: #be185d;
-      color: #fff;
-      font-size: 9.5px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-top: 3px;
-    }
-    .service-info .badge-two-beautician {
-      display: inline-block;
-      background: #047857;
-      color: #a7f3d0;
-      font-size: 9.5px;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-top: 3px;
-      margin-left: 4px;
-    }
-    .service-price { font-size: 16px; font-weight: 800; color: #38bdf8; margin-top: 4px; }
-    .btn-add {
-      background: #ec4899;
-      color: #fff;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .cart-float {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #1e293b;
-      border-top: 1px solid #334155;
-      padding: 12px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 200;
-    }
-    .cart-summary { font-size: 12px; }
-    .cart-total { font-size: 17px; font-weight: 800; color: #38bdf8; }
-    .btn-checkout {
-      background: #16a34a;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
-    .modal-box {
-      background: #ffffff;
-      color: #0f172a;
-      border-radius: 12px;
-      max-width: 390px;
-      width: 100%;
-      padding: 18px;
-      text-align: center;
-      max-height: 92vh;
-      overflow-y: auto;
-    }
-
-    .btn-gps {
-      background: #0284c7;
-      color: #fff;
-      border: none;
-      padding: 9px 10px;
-      border-radius: 6px;
-      font-size: 11.5px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-    .btn-gps.detected { background: #16a34a !important; }
-
-    .btn-wa {
-      background: #25d366;
-      color: #fff;
-      border: none;
-      padding: 9px 10px;
-      border-radius: 6px;
-      font-size: 11.5px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .special-demand-notice {
-      background: #fef3c7;
-      border: 1px solid #f59e0b;
-      color: #92400e;
-      border-radius: 6px;
-      padding: 8px;
-      font-size: 11px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      text-align: left;
-    }
+    .img-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; padding:16px; }
+    .img-modal img { max-width:90%; max-height:80vh; border-radius:8px; border:2px solid #38bdf8; }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="brand-wrap">
-      <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-        <defs>
-          <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#f43f5e" />
-            <stop offset="100%" stop-color="#ec4899" />
-          </linearGradient>
-        </defs>
-        <circle cx="50" cy="50" r="46" fill="#111827" stroke="url(#glowGrad)" stroke-width="3.5"/>
-        <circle cx="50" cy="50" r="39" stroke="#f43f5e" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
-        <path d="M50 18 C41 36, 41 58, 50 72 C59 58, 59 36, 50 18 Z" fill="url(#glowGrad)"/>
-        <path d="M50 42 C34 42, 22 52, 26 68 C34 72, 45 67, 50 58 Z" fill="#ec4899" opacity="0.9"/>
-        <path d="M50 42 C66 42, 78 52, 74 68 C66 72, 55 67, 50 58 Z" fill="#ec4899" opacity="0.9"/>
-        <path d="M32 72 C44 80, 56 80, 68 72 C63 82, 37 82, 32 72 Z" fill="#fbbf24"/>
-      </svg>
-
-      <div style="display:flex; flex-direction:column; justify-content:center;">
-        <div style="display:flex; align-items:baseline; gap:5px; line-height:1;">
-          <span style="font-size:18px; font-weight:900; color:#ec4899; letter-spacing:1px; text-shadow:0 0 10px rgba(236,72,153,0.3);">RINZHU</span>
-          <span style="font-size:13.5px; font-weight:700; color:#f8fafc; letter-spacing:1.8px;">BEAUTY</span>
-        </div>
-        <span style="font-size:9.5px; font-weight:600; color:#38bdf8; letter-spacing:0.4px; margin-top:3px;">
-          A Unit of Inten Agency
-        </span>
-      </div>
+    <div>
+      <div class="brand">🏛️ District Admin</div>
+      <div style="font-size:10px; color:#94a3b8;">Rinzhu Beauty | Inten Agency</div>
     </div>
-
-    <div class="header-right">
-      <div id="verified-customer-pill" class="user-pill" style="display:none; cursor:pointer;" title="Click to Logout"></div>
-      <button class="btn-quick-qr" onclick="openDirectQR()">📱 Pay QR</button>
-    </div>
+    <div class="badge-district">Franchise HQ</div>
   </header>
 
   <div class="container">
 
-    <!-- ⭐ LIVE RATING NOTIFICATION BANNER (Auto-detects completed service) -->
-    <div id="customer-rating-alert">
-      <div style="display:flex; align-items:center; gap:8px;">
-        <span style="font-size:24px;">🎉</span>
-        <div>
-          <b style="font-size:14px; color:#fff;">Service Complete Ho Gayi Hai!</b>
-          <div style="font-size:11px; color:#e2e8f0; margin-top:2px;">Aapka anubhav kaisa raha? Kripya beautician ko rating dein.</div>
-        </div>
+    <div class="grid-stats">
+      <div class="stat-card highlight">
+        <div class="stat-label">Franchise Profit (10%)</div>
+        <div class="stat-val" id="franchise-earning">₹0</div>
       </div>
-      <a id="rating-page-link" href="rating.html" class="rating-alert-btn">⭐ Beautician Ko Rating Dein &rarr;</a>
+      <div class="stat-card">
+        <div class="stat-label">Verified Beauticians</div>
+        <div class="stat-val" id="active-beauticians-count">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Booking Volume</div>
+        <div class="stat-val" id="total-volume">₹0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Pending KYC</div>
+        <div class="stat-val" id="pending-kyc-count">0</div>
+      </div>
     </div>
 
-    <div class="hero-banner">
-      <h2>घर बैठे पाएं प्रोफेशनल सैलून सर्विस</h2>
-      <p>100% सत्यापित महिला ब्यूटीशियन | सुरक्षित OTP वेरिफिकेशन | नो पार्लर लाइन</p>
+    <div class="tab-bar">
+      <button class="tab-btn active" id="btn-tab-partners" onclick="setTab('partners')">👩 Beautician KYC Hub (<span id="count-partners">0</span>)</button>
+      <button class="tab-btn" id="btn-tab-orders" onclick="setTab('orders')">📦 Orders Stream (<span id="count-orders">0</span>)</button>
     </div>
 
-    <div class="cat-bar">
-      <div class="cat-chip active" onclick="filterServices('all', this)">All Services</div>
-      <div class="cat-chip" onclick="filterServices('threading', this)">🧵 Threading &amp; Bleach</div>
-      <div class="cat-chip special" onclick="filterServices('bridal', this)">👑 Dulhan &amp; Anniversary</div>
-      <div class="cat-chip" onclick="filterServices('facial', this)">💆 Facial &amp; Cleanup</div>
-      <div class="cat-chip" onclick="filterServices('wax', this)">🍯 Waxing</div>
-      <div class="cat-chip" onclick="filterServices('hair', this)">💇 Hair &amp; Draping</div>
-      <div class="cat-chip" onclick="filterServices('mani', this)">💅 Mani-Pedi &amp; Nails</div>
+    <div id="view-partners">
+      <div style="font-size:13px; font-weight:700; color:#cbd5e1; margin-bottom:10px;">
+        Partner Document Verification &amp; Indemnity
+      </div>
+      <div id="partners-list"></div>
     </div>
 
-    <div id="services-list"></div>
+    <div id="view-orders" style="display:none;">
+      <div id="orders-list"></div>
+    </div>
 
   </div>
 
-  <footer style="background:#0b1120; color:#64748b; text-align:center; padding:28px 16px; margin-top:40px; font-size:11.5px; border-top:1px solid #1e293b; line-height:1.6;">
-    <p style="color:#f8fafc; font-weight:800; font-size:13px; letter-spacing:0.5px; margin-bottom:4px;">
-      RINZHU BEAUTY &amp; WELLNESS
-    </p>
-    <p style="margin-bottom:4px; color:#94a3b8; font-size:12px;">
-      Owned and Managed by <b style="color:#cbd5e1;">Inten Agency</b>
-    </p>
-    <p style="color:#64748b; font-size:11px; margin-bottom:8px;">
-      Official Beneficiary: <b style="color:#cbd5e1;">INTEN AGENCY</b>
-    </p>
-    <div style="font-size:10.5px; color:#475569;">
-      <span>&copy; 2026 Inten Agency. All Rights Reserved.</span>
-    </div>
-  </footer>
-
-  <div class="cart-float" id="cart-bar" style="display:none;">
-    <div class="cart-summary">
-      <span id="cart-count">0 Items</span> | Total:
-      <div class="cart-total" id="cart-total">₹0</div>
-    </div>
-    <button class="btn-checkout" onclick="handleCheckoutClick()">Book Services &rarr;</button>
-  </div>
-
-  <!-- MODAL 1: OTP REGISTRATION -->
-  <div id="otp-modal" class="modal-overlay">
-    <div class="modal-box">
-      <div style="font-size:28px; margin-bottom:4px;">📲</div>
-      <div style="font-size:11px; font-weight:700; color:#be185d; text-transform:uppercase;">Customer Security Verification</div>
-      <h3 style="margin:4px 0 8px; font-size:16px; color:#0f172a;">Mobile Registration</h3>
-      <p style="font-size:11.5px; color:#64748b; margin-bottom:12px;">Doorstep service mangwane ke liye mobile verify karein.</p>
-
-      <div id="otp-step-phone">
-        <input type="tel" id="auth-mobile-input" placeholder="10-digit Mobile Number" maxlength="10" style="width:100%; padding:11px; border:1.5px solid #cbd5e1; border-radius:6px; font-size:13px; margin-bottom:10px; text-align:center; font-weight:bold;" />
-        <button onclick="requestCustomerOTP()" style="width:100%; background:#0284c7; color:#fff; border:none; padding:11px; border-radius:6px; font-weight:bold; font-size:12.5px; cursor:pointer;">Send OTP Code</button>
-      </div>
-
-      <div id="otp-step-verify" style="display:none;">
-        <div style="font-size:11.5px; color:#0284c7; margin-bottom:8px;">OTP sent to: <b id="otp-sent-number"></b></div>
-        <input type="text" id="auth-otp-input" placeholder="Enter 4-Digit OTP" maxlength="4" style="width:100%; padding:11px; border:1.5px solid #cbd5e1; border-radius:6px; font-size:15px; letter-spacing:4px; margin-bottom:10px; text-align:center; font-weight:bold;" />
-        <button onclick="verifyCustomerOTP()" style="width:100%; background:#16a34a; color:#fff; border:none; padding:11px; border-radius:6px; font-weight:bold; font-size:12.5px; cursor:pointer;">Verify &amp; Proceed</button>
-      </div>
-
-      <button onclick="closeOtpModal()" style="width:100%; background:transparent; border:none; color:#64748b; padding:8px; margin-top:8px; font-size:11px; cursor:pointer;">Cancel</button>
-    </div>
-  </div>
-
-  <!-- MODAL 2: UPI PAYMENT -->
-  <div id="payment-modal" class="modal-overlay">
-    <div class="modal-box">
-      <div style="font-size:11px; font-weight:700; color:#be185d; text-transform:uppercase;">Official Payment Gateway</div>
-      <h3 style="margin:4px 0 8px; font-size:16px; color:#0f172a;">Pay to Inten Agency</h3>
-      
-      <div id="bridal-special-notice" class="special-demand-notice" style="display:none;">
-        ✨ <b>VIP Special Booking:</b> Is order ke liye aapke ghar <b>2 Expert Beauticians</b> dispatch ki jayengi.
-      </div>
-
-      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px; margin-bottom:10px; text-align:left;">
-        <div style="font-size:11px; color:#64748b;">Merchant Beneficiary:</div>
-        <div style="font-size:13px; font-weight:800; color:#0f172a;">INTEN AGENCY (Rinzhu Beauty)</div>
-        <div style="font-size:11px; color:#0284c7; margin-top:2px;">UPI ID: <span id="display-upi-id">intenagency@upi</span></div>
-        <div style="font-size:12px; color:#16a34a; margin-top:2px; font-weight:bold;">Payable Amount: <span id="modal-pay-amount">₹0</span></div>
-      </div>
-
-      <div style="margin:8px auto; width:155px; height:155px; background:#fff; padding:6px; border:2px dashed #cbd5e1; border-radius:8px; display:flex; align-items:center; justify-content:center;">
-        <img id="upi-qr-img" src="" alt="Inten Agency UPI QR" style="width:100%; height:100%; object-fit:contain;">
-      </div>
-
-      <p style="font-size:11px; color:#64748b; margin-bottom:8px;">GPay, PhonePe, Paytm ya kisi bhi UPI app se scan karein.</p>
-
-      <input type="text" id="cust-phone-input" readonly style="width:100%; padding:9px; border:1.5px solid #cbd5e1; border-radius:6px; font-size:12px; margin-bottom:6px; text-align:center; background:#f1f5f9; font-weight:bold;" />
-      
-      <div style="display:flex; gap:6px; margin-bottom:6px;">
-        <button type="button" id="btn-get-location" class="btn-gps" onclick="fetchLiveLocation()" style="flex:1;">
-          📍 GPS Auto-Detect
-        </button>
-        <button type="button" class="btn-wa" onclick="shareOnWhatsApp()" style="flex:1;">
-          💬 WhatsApp Location
-        </button>
-      </div>
-      <input type="hidden" id="cust-gps-link" value="" />
-      <input type="hidden" id="cust-lat" value="" />
-      <input type="hidden" id="cust-lng" value="" />
-
-      <input type="text" id="cust-address-input" placeholder="Ghar / Makan No / Landmark (Manual Address)" style="width:100%; padding:9px; border:1.5px solid #cbd5e1; border-radius:6px; font-size:12px; margin-bottom:6px; text-align:center;" />
-      <input type="text" id="txn-utr-input" placeholder="12-digit UTR No. (Optional / Agar Pay Kiya)" style="width:100%; padding:9px; border:1.5px solid #cbd5e1; border-radius:6px; font-size:12px; margin-bottom:10px; text-align:center;" />
-
-      <div style="display:flex; gap:8px;">
-        <button onclick="closePaymentModal()" style="flex:1; background:#e2e8f0; border:none; padding:10px; border-radius:6px; font-weight:bold; font-size:12px; cursor:pointer;">Cancel</button>
-        <button onclick="submitUpiPayment()" style="flex:1; background:#16a34a; color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold; font-size:12px; cursor:pointer;">Verify &amp; Book</button>
-      </div>
-    </div>
+  <div id="lightbox-modal" class="img-modal" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="" alt="Document Preview" />
   </div>
 
   <script>
-    const INTEN_UPI_ID = "intenagency@upi";
-    const INTEN_MERCHANT_NAME = "Inten Agency";
-    const BUSINESS_WHATSAPP = "919876543210";
+    let activeTab = 'partners';
 
-    let generatedOtp = null;
-    let pendingOtpPhone = "";
+    function setTab(tab) {
+      activeTab = tab;
+      document.getElementById('view-partners').style.display = (tab === 'partners') ? 'block' : 'none';
+      document.getElementById('view-orders').style.display = (tab === 'orders') ? 'block' : 'none';
+      document.getElementById('btn-tab-partners').classList.toggle('active', tab === 'partners');
+      document.getElementById('btn-tab-orders').classList.toggle('active', tab === 'orders');
+      loadAdminDashboard();
+    }
 
-    const services = [
-      { id: 201, cat: 'threading', name: 'Eyebrow + Upper Lip Threading', time: '15 mins', price: 59, desc: 'Precise shape eyebrow threading & gentle upper lip cleanup' },
-      { id: 202, cat: 'threading', name: 'Full Face Threading', time: '25 mins', price: 99, desc: 'Forehead, chin, upper lip, sides & eyebrow complete threading' },
-      { id: 203, cat: 'threading', name: 'Forehead & Chin Threading Combo', time: '10 mins', price: 49, desc: 'Smooth forehead & chin hair removal' },
-      { id: 204, cat: 'threading', name: 'Oxy Life Instant Glow Face Bleach', time: '20 mins', price: 199, desc: 'Gentle oxygen-infused bleach for bright skin tone' },
-      { id: 205, cat: 'threading', name: 'Fem Gold Radiance Bleach (Face & Neck)', time: '25 mins', price: 249, desc: 'Golden glow bleach for special occasions & festivals' },
-      { id: 206, cat: 'threading', name: 'Raaga Express Face De-Tan Pack', time: '20 mins', price: 249, desc: 'Instant sun burn & tan removal herbal pack' },
-      { id: 101, cat: 'bridal', vip: true, twoStaff: true, name: 'Royal HD Bridal Makeover (शादी दुल्हन शृंगार)', time: '150 mins', price: 4999, desc: 'Complete HD Bridal Makeup + Hair Do + Saree/Lehenga Draping + Jewelry Setting' },
-      { id: 102, cat: 'bridal', vip: true, twoStaff: true, name: 'Pre-Bridal Complete Glow Package', time: '180 mins', price: 2999, desc: 'O3+ Bridal Facial + Full Body Waxing + Mani-Pedi + Full Body Polishing' },
-      { id: 103, cat: 'bridal', vip: true, twoStaff: true, name: 'Anniversary Special Romantic Glam Makeup', time: '60 mins', price: 1499, desc: 'Party Glam Makeup + Soft Curls/Bun + Saree Draping' },
-      { id: 104, cat: 'bridal', vip: true, twoStaff: true, name: 'Engagement / Reception Special Look', time: '90 mins', price: 2499, desc: 'Airbrush Glow Makeup + Premium Hairstyling + Lashes' },
-      { id: 1, cat: 'facial', name: 'Fruit Glowing Facial & Cleanup', time: '45 mins', price: 499, desc: 'Herbal natural glow for sensitive skin' },
-      { id: 2, cat: 'facial', name: 'O3+ Bridal Glow Facial', time: '60 mins', price: 1199, desc: 'Instant brightening & salon crystal glow' },
-      { id: 3, cat: 'facial', name: 'Diamond Sparkle Anti-Tan Facial', time: '55 mins', price: 899, desc: 'Sun tan removal & skin firming' },
-      { id: 4, cat: 'facial', name: 'Gold Radiance Glow Facial', time: '50 mins', price: 749, desc: 'Deep nourishment & festive glow' },
-      { id: 5, cat: 'wax', name: 'Full Arms + Full Legs Honey Wax', time: '40 mins', price: 399, desc: 'Smooth hair-free finish with honey wax' },
-      { id: 6, cat: 'wax', name: 'Rica Liposoluble Full Waxing (Arms+Legs)', time: '50 mins', price: 799, desc: 'Painless, zero redness, Italian Rica wax' },
-      { id: 7, cat: 'wax', name: 'Full Body Rica Waxing Package', time: '90 mins', price: 1799, desc: 'Complete body waxing including underarms' },
-      { id: 8, cat: 'wax', name: 'Underarms Waxing (Honey/Rica)', time: '15 mins', price: 149, desc: 'Quick hygienic disposable strip waxing' },
-      { id: 207, cat: 'hair', name: 'Ayurvedic Hot Oil Champi (Head Massage)', time: '30 mins', price: 249, desc: 'Stress relief warm oil head & shoulder deep massage' },
-      { id: 208, cat: 'hair', name: 'Professional Saree / Dupatta Draping', time: '20 mins', price: 249, desc: 'Neat pin-up, pleating & styling for any event' },
-      { id: 209, cat: 'hair', name: 'Hair Wash + Blowdry Styling', time: '25 mins', price: 299, desc: 'Shampoo, conditioner & instant salon bounce blowdry' },
-      { id: 9, cat: 'hair', name: 'L\'Oreal Hair Spa & Deep Massage', time: '45 mins', price: 699, desc: 'Intense hydration for dry/damaged hair' },
-      { id: 10, cat: 'hair', name: 'Keratin Nourishing Hair Treatment', time: '60 mins', price: 1299, desc: 'Frizz control & intense shine spa' },
-      { id: 11, cat: 'hair', name: 'Professional Hair Cut & Blowdry', time: '35 mins', price: 349, desc: 'Layer, Step or Feather cut with styling' },
-      { id: 210, cat: 'mani', name: 'Classic Nail Polish Application', time: '15 mins', price: 99, desc: 'Cuticle shaping & professional long-stay polish' },
-      { id: 12, cat: 'mani', name: 'Rose Petal Manicure + Pedicure', time: '50 mins', price: 599, desc: 'Exfoliation, cuticle care, heel smoothing' },
-      { id: 13, cat: 'mani', name: 'Sara Herbals Full Body De-Tan Pack', time: '45 mins', price: 899, desc: 'Instant sun tan removal for hands & feet' },
-      { id: 14, cat: 'mani', name: 'Deluxe Crystal Spa Pedicure', time: '40 mins', price: 449, desc: 'Foot crack repair & relaxing lavender soak' }
-    ];
+    function showDocModal(base64Data) {
+      if (!base64Data) {
+        alert("Photo upload nahi ki gayi thi.");
+        return;
+      }
+      document.getElementById('lightbox-img').src = base64Data;
+      document.getElementById('lightbox-modal').style.display = 'flex';
+    }
 
-    let cart = [];
-
-    // ⭐ Check If Any Order Was Completed For Verified Customer
-    function checkCompletedOrderAlert() {
-      const verifiedPhone = localStorage.getItem('rinzhu_verified_customer');
-      if (!verifiedPhone) return;
-
+    function loadAdminDashboard() {
       const orders = JSON.parse(localStorage.getItem('rinzhu_orders')) || [];
-      // Find completed order for this phone which is not yet rated
-      const completedOrder = orders.find(o => o.customerPhone === verifiedPhone && o.status === 'Completed' && !o.isRated);
-
-      const alertBox = document.getElementById('customer-rating-alert');
-      if (completedOrder) {
-        alertBox.style.display = 'block';
-        document.getElementById('rating-page-link').href = `rating.html?orderId=${completedOrder.id}`;
-      } else {
-        alertBox.style.display = 'none';
-      }
-    }
-
-    function isCustomerBlocked(phone) {
-      const blockedList = JSON.parse(localStorage.getItem('rinzhu_blocked_customers')) || [];
-      return blockedList.includes(phone);
-    }
-
-    function updateCustomerBadge() {
-      const verifiedPhone = localStorage.getItem('rinzhu_verified_customer');
-      const pill = document.getElementById('verified-customer-pill');
-      if (verifiedPhone) {
-        pill.style.display = 'block';
-        pill.innerText = `👤 +91 ${verifiedPhone}`;
-        pill.onclick = function() {
-          if (confirm("Kya aap apna mobile number switch ya remove karna chahte hain?")) {
-            localStorage.removeItem('rinzhu_verified_customer');
-            updateCustomerBadge();
-            checkCompletedOrderAlert();
-          }
-        };
-      } else {
-        pill.style.display = 'none';
-      }
-    }
-
-    function getDistanceInKm(lat1, lon1, lat2, lon2) {
-      const R = 6371;
-      const dLat = (lat2 - lat1) * (Math.PI / 180);
-      const dLon = (lon2 - lon1) * (Math.PI / 180);
-      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * 
-                Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-    }
-
-    function dispatchToNearbyBeauticians(order, custLat, custLng) {
       const partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
-      const approved = partners.filter(p => p.status === 'Approved');
 
-      let targetBeauticians = [];
-      if (custLat && custLng) {
-        targetBeauticians = approved.filter(b => {
-          if (!b.lat || !b.lng) return true;
-          const d = getDistanceInKm(custLat, custLng, b.lat, b.lng);
-          b.tempDist = d.toFixed(1);
-          return d <= 10.0;
-        });
-      } else {
-        targetBeauticians = approved;
-      }
-
-      if (targetBeauticians.length > 0) {
-        const top = targetBeauticians[0];
-        const distInfo = top.tempDist ? `(${top.tempDist} KM Door)` : '';
-        const msg = `🌸 *RINZHU BEAUTY - NEW 10 KM JOB ALERT* ${distInfo}\n\n` +
-                    `🆔 *Order:* ${order.id}\n` +
-                    `💆 *Services:* ${order.services}\n` +
-                    `💰 *Aapka Payout (80%):* ₹${Math.round(order.serviceBill * 0.80)}\n` +
-                    `👥 *Staff:* ${order.staffRequired}\n` +
-                    `📍 *Address:* ${order.deliveryAddress}\n\n` +
-                    `👉 *Accept Karne Ke Liye Beautician Portal Kholein!*`;
-
-        window.open(`https://wa.me/91${top.phone}?text=${encodeURIComponent(msg)}`, '_blank');
-      }
-    }
-
-    function renderServices(filter = 'all') {
-      const container = document.getElementById('services-list');
-      const filtered = filter === 'all' ? services : services.filter(s => s.cat === filter);
-
-      container.innerHTML = filtered.map(s => `
-        <div class="service-card ${s.vip ? 'highlight' : ''}">
-          <div class="service-info" style="flex:1; padding-right:10px;">
-            <h4>${s.name}</h4>
-            <span>⏱ ${s.time} • ${s.desc || ''}</span>
-            <div style="margin-top:2px;">
-              ${s.vip ? '<span class="badge-vip">👑 SPECIAL PACKAGE</span>' : ''}
-              ${s.twoStaff ? '<span class="badge-two-beautician">👯 2 Beauticians Dispatched</span>' : ''}
-            </div>
-            <div class="service-price">₹${s.price}</div>
-          </div>
-          <button class="btn-add" onclick="addToCart(${s.id})">+ Add</button>
-        </div>
-      `).join('');
-    }
-
-    function filterServices(cat, el) {
-      document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      renderServices(cat);
-    }
-
-    function addToCart(id) {
-      const item = services.find(s => s.id === id);
-      cart.push(item);
-      updateCartUI();
-    }
-
-    function calculateCartTotal() {
-      let subtotal = cart.reduce((sum, item) => sum + item.price, 0);
-      let discount = 0;
-      if (cart.length === 2) discount = subtotal * 0.05;
-      else if (cart.length >= 3) discount = subtotal * 0.10;
-      return Math.round(subtotal - discount);
-    }
-
-    function updateCartUI() {
-      const bar = document.getElementById('cart-bar');
-      if (cart.length === 0) {
-        bar.style.display = 'none';
-        return;
-      }
-      bar.style.display = 'flex';
-      document.getElementById('cart-count').innerText = `${cart.length} Services Selected`;
-      document.getElementById('cart-total').innerText = `₹${calculateCartTotal()}`;
-    }
-
-    function handleCheckoutClick() {
-      const verifiedPhone = localStorage.getItem('rinzhu_verified_customer');
-      if (!verifiedPhone) {
-        openOtpModal();
-      } else {
-        if (isCustomerBlocked(verifiedPhone)) {
-          alert("⛔ Aapka account suspisious activity ke karan BLOCK kar diya gaya hai. Kripya customer care se sampark karein.");
-          return;
+      let volume = 0;
+      let profit10 = 0;
+      orders.forEach(o => {
+        const val = Number(o.serviceBill) || 0;
+        volume += val;
+        if (o.status === 'Completed') {
+          profit10 += Math.round(val * 0.10);
         }
-        openPaymentModalWithPhone(verifiedPhone);
-      }
-    }
+      });
 
-    function openOtpModal() {
-      document.getElementById('otp-step-phone').style.display = 'block';
-      document.getElementById('otp-step-verify').style.display = 'none';
-      document.getElementById('auth-mobile-input').value = '';
-      document.getElementById('auth-otp-input').value = '';
-      document.getElementById('otp-modal').style.display = 'flex';
-    }
+      const approvedPartners = partners.filter(p => p.status === 'Approved').length;
+      const pendingPartners = partners.filter(p => p.status === 'Pending').length;
 
-    function closeOtpModal() {
-      document.getElementById('otp-modal').style.display = 'none';
-    }
+      document.getElementById('total-volume').innerText = "₹" + volume;
+      document.getElementById('franchise-earning').innerText = "₹" + profit10;
+      document.getElementById('active-beauticians-count').innerText = approvedPartners;
+      document.getElementById('pending-kyc-count').innerText = pendingPartners;
+      document.getElementById('count-partners').innerText = partners.length;
+      document.getElementById('count-orders').innerText = orders.length;
 
-    function requestCustomerOTP() {
-      const phone = document.getElementById('auth-mobile-input').value.trim();
-      if (phone.length < 10) {
-        alert("Kripya sahi 10-digit mobile number darj karein!");
-        return;
-      }
-      if (isCustomerBlocked(phone)) {
-        alert("⛔ Yeh mobile number Inten Agency dwara BLOCK kar diya gaya hai. Aap booking nahi kar sakte.");
-        closeOtpModal();
-        return;
-      }
-
-      pendingOtpPhone = phone;
-      generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-
-      document.getElementById('otp-sent-number').innerText = `+91 ${phone}`;
-      document.getElementById('otp-step-phone').style.display = 'none';
-      document.getElementById('otp-step-verify').style.display = 'block';
-
-      alert(`🔐 Rinzhu Beauty Security OTP:\nAapka verification code hai: [ ${generatedOtp} ]`);
-    }
-
-    function verifyCustomerOTP() {
-      const enteredOtp = document.getElementById('auth-otp-input').value.trim();
-      if (enteredOtp === generatedOtp) {
-        localStorage.setItem('rinzhu_verified_customer', pendingOtpPhone);
-        updateCustomerBadge();
-        closeOtpModal();
-        alert("✔ Mobile Registration Safal! Ab aap booking complete kar sakte hain.");
-        openPaymentModalWithPhone(pendingOtpPhone);
+      const partnersContainer = document.getElementById('partners-list');
+      if (partners.length === 0) {
+        partnersContainer.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; background:#1e293b; border-radius:10px;">📭 Koi partner registered nahi hai.</div>`;
       } else {
-        alert("Galat OTP code! Kripya dobara check karein.");
+        partnersContainer.innerHTML = partners.slice().reverse().map(p => {
+          const isApp = p.status === 'Approved';
+          const defaultDp = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="%23ec4899"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
+
+          return `
+            <div class="item-card" style="border-left:4px solid ${isApp ? '#16a34a' : '#eab308'};">
+              
+              <div class="partner-mini-profile">
+                <img src="${p.profileImg || defaultDp}" class="partner-thumb" onclick="showDocModal('${p.profileImg}')" alt="Beautician DP" title="Tap to view DP full screen" />
+                <div style="flex:1;">
+                  <div style="font-weight:bold; color:#f8fafc; font-size:13px;">${p.name} (${p.id})</div>
+                  <div style="font-size:11px; color:#94a3b8;">Area: ${p.area}</div>
+                </div>
+                <span class="status-tag ${isApp ? 'tag-approved' : 'tag-pending'}">${p.status}</span>
+              </div>
+
+              <div class="kyc-box">
+                <div><b>Aadhaar No:</b> <span style="color:#38bdf8;">${p.aadhaar}</span></div>
+                <div><b>PAN No:</b> <span style="color:#38bdf8;">${p.pan}</span></div>
+                <div><b>Documents Attached:</b> 
+                  ${p.profileImg ? `<span class="doc-preview-link" onclick="showDocModal('${p.profileImg}')">👤 View DP</span> | ` : ''}
+                  ${p.aadhaarImg ? `<span class="doc-preview-link" onclick="showDocModal('${p.aadhaarImg}')">📷 Aadhaar Photo</span> | ` : ''}
+                  ${p.panImg ? `<span class="doc-preview-link" onclick="showDocModal('${p.panImg}')">📷 PAN Photo</span>` : ''}
+                </div>
+                <div style="margin-top:4px;"><b>Legal Agreement:</b> <span style="color:#4ade80;">✔ ${p.legalIndemnitySigned || 'Accepted'}</span></div>
+                <div><b>UPI:</b> ${p.upi} | <b>Exp:</b> ${p.exp}</div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <div>
+                  ${!isApp ? `<button class="btn-approve" onclick="setPartnerStatus('${p.id}', 'Approved')">✔ Verify &amp; Approve</button>` : ''}
+                  ${isApp ? `<button class="btn-reject" onclick="setPartnerStatus('${p.id}', 'Suspended')">Suspend Partner</button>` : ''}
+                  ${!isApp ? `<button class="btn-reject" onclick="setPartnerStatus('${p.id}', 'Rejected')">Reject</button>` : ''}
+                </div>
+                <a href="tel:${p.phone}" style="background:#475569; color:#fff; text-decoration:none; padding:6px 10px; border-radius:6px; font-size:11px; font-weight:bold;">📞 Call</a>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const ordersContainer = document.getElementById('orders-list');
+      if (orders.length === 0) {
+        ordersContainer.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; background:#1e293b; border-radius:10px;">Koi order nahi hai.</div>`;
+      } else {
+        ordersContainer.innerHTML = orders.slice().reverse().map(o => {
+          const bill = Number(o.serviceBill) || 0;
+          return `
+            <div class="item-card">
+              <div class="item-top">
+                <span style="font-weight:bold; color:#ec4899;">${o.id}</span>
+                <span class="status-tag ${o.status === 'Completed' ? 'tag-approved' : 'tag-pending'}">${o.status}</span>
+              </div>
+              <p style="font-size:12px; color:#cbd5e1;"><b>Services:</b> ${o.services}</p>
+              <p style="font-size:12px; color:#cbd5e1;"><b>Bill Amount:</b> ₹${bill} | <b>Franchise Share (10%):</b> <span style="color:#38bdf8;">₹${Math.round(bill*0.10)}</span></p>
+            </div>
+          `;
+        }).join('');
       }
     }
 
-    function openDirectQR() {
-      handleCheckoutClick();
-    }
-
-    function openPaymentModalWithPhone(phone) {
-      const amount = calculateCartTotal() || 299;
-      const upiUrl = `upi://pay?pa=${INTEN_UPI_ID}&pn=${encodeURIComponent(INTEN_MERCHANT_NAME)}&am=${amount}&cu=INR`;
-      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=155x155&data=${encodeURIComponent(upiUrl)}`;
-
-      document.getElementById('display-upi-id').innerText = INTEN_UPI_ID;
-      document.getElementById('modal-pay-amount').innerText = `₹${amount}`;
-      document.getElementById('upi-qr-img').src = qrApiUrl;
-      document.getElementById('cust-phone-input').value = phone;
-
-      const hasTwoStaffService = cart.some(item => item.twoStaff);
-      document.getElementById('bridal-special-notice').style.display = hasTwoStaffService ? 'block' : 'none';
-
-      document.getElementById('payment-modal').style.display = 'flex';
-    }
-
-    function closePaymentModal() {
-      document.getElementById('payment-modal').style.display = 'none';
-    }
-
-    function fetchLiveLocation() {
-      const btn = document.getElementById('btn-get-location');
-      if (!navigator.geolocation) {
-        document.getElementById('cust-address-input').focus();
-        btn.innerText = "✍ Address Likhein";
-        return;
+    function setPartnerStatus(id, st) {
+      let partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+      const item = partners.find(x => x.id === id);
+      if (item) {
+        item.status = st;
+        localStorage.setItem('rinzhu_beauticians', JSON.stringify(partners));
+        alert(`Partner status badal kar "${st}" kar diya gaya hai!`);
+        loadAdminDashboard();
       }
-
-      btn.innerText = "⏳ Detecting GPS...";
-      btn.style.background = "#eab308";
-
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const lat = pos.coords.latitude.toFixed(6);
-          const lng = pos.coords.longitude.toFixed(6);
-          document.getElementById('cust-gps-link').value = `https://maps.google.com/?q=${lat},${lng}`;
-          document.getElementById('cust-lat').value = lat;
-          document.getElementById('cust-lng').value = lng;
-          btn.innerText = `✔ GPS Locked`;
-          btn.className = "btn-gps detected";
-          btn.style.background = "#16a34a";
-        },
-        () => {
-          btn.innerText = "📍 GPS Blocked";
-          btn.style.background = "#475569";
-          document.getElementById('cust-address-input').focus();
-        },
-        { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
-      );
     }
 
-    function shareOnWhatsApp() {
-      const phone = document.getElementById('cust-phone-input').value.trim();
-      const totalAmount = calculateCartTotal() || 299;
-      const items = cart.length > 0 ? cart.map(c => c.name).join(", ") : "Custom Booking";
-      const hasSpecial = cart.some(c => c.twoStaff);
-
-      const msg = `🌸 *New Salon Order - Rinzhu Beauty (Inten Agency)*\n\n` +
-                  `📱 *Customer Phone:* +91 ${phone}\n` +
-                  `💆 *Services:* ${items}\n` +
-                  `👯 *Staff Required:* ${hasSpecial ? '2 Expert Beauticians' : '1 Verified Beautician'}\n` +
-                  `💰 *Payable:* ₹${totalAmount}\n\n` +
-                  `📍 *Note:* Main apni Google Live Location WhatsApp par share kar rahi hoon.`;
-
-      window.open(`https://wa.me/${BUSINESS_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
-    function submitUpiPayment() {
-      const phone = document.getElementById('cust-phone-input').value.trim();
-      const address = document.getElementById('cust-address-input').value.trim();
-      const gpsLink = document.getElementById('cust-gps-link').value;
-      const custLat = Number(document.getElementById('cust-lat').value) || null;
-      const custLng = Number(document.getElementById('cust-lng').value) || null;
-      const utr = document.getElementById('txn-utr-input').value.trim();
-
-      if (isCustomerBlocked(phone)) {
-        alert("⛔ Yeh number block hai. Booking execute nahi ho sakti.");
-        return;
-      }
-      if (address.length < 4 && !gpsLink) {
-        alert("Kripya apna address likhein ya GPS button use karein!");
-        return;
-      }
-
-      const totalAmount = calculateCartTotal() || 299;
-      const hasTwoStaffService = cart.some(item => item.twoStaff);
-
-      const existingOrders = JSON.parse(localStorage.getItem('rinzhu_orders')) || [];
-      const newOrder = {
-        id: "RB-" + Math.floor(100000 + Math.random() * 900000),
-        customerPhone: phone,
-        deliveryAddress: address || "GPS Location Shared",
-        googleMapsLocation: gpsLink || "Shared via WhatsApp",
-        custLat: custLat,
-        custLng: custLng,
-        services: cart.length > 0 ? cart.map(c => c.name).join(", ") : "Custom Booking",
-        staffRequired: hasTwoStaffService ? "2 Beauticians (Special Demand)" : "1 Beautician",
-        serviceBill: totalAmount,
-        utr: utr || "Pending / COD",
-        beneficiary: "Inten Agency",
-        status: "Pending",
-        timestamp: new Date().toLocaleString()
-      };
-
-      existingOrders.push(newOrder);
-      localStorage.setItem('rinzhu_orders', JSON.stringify(existingOrders));
-
-      dispatchToNearbyBeauticians(newOrder, custLat, custLng);
-
-      const alertMsg = hasTwoStaffService
-        ? "Special Booking Received! 2 Expert Beauticians dispatch ki ja rahi hain."
-        : "Booking Receive ho gayi hai! 10 KM ke daayre me sthit verified beautician ko WhatsApp alert bhej diya gaya hai.";
-
-      alert(alertMsg);
-      
-      cart = [];
-      document.getElementById('cust-address-input').value = "";
-      document.getElementById('cust-gps-link').value = "";
-      document.getElementById('cust-lat').value = "";
-      document.getElementById('cust-lng').value = "";
-      document.getElementById('txn-utr-input').value = "";
-      
-      const btn = document.getElementById('btn-get-location');
-      btn.innerText = "📍 GPS Auto-Detect";
-      btn.className = "btn-gps";
-      btn.style.background = "#0284c7";
-
-      updateCartUI();
-      closePaymentModal();
-    }
-
-    renderServices('all');
-    updateCustomerBadge();
-    checkCompletedOrderAlert();
-    setInterval(checkCompletedOrderAlert, 3000);
+    loadAdminDashboard();
+    setInterval(loadAdminDashboard, 4000);
   </script>
 </body>
-  </html>
+</html>
