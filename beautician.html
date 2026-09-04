@@ -1,1 +1,663 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rinzhu Beauty - Beautician Partner Portal</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background:#0f172a; color:#f8fafc; padding-bottom:50px; }
 
+    header {
+      background:#1e293b;
+      padding:12px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid #334155;
+    }
+    .brand { font-size:17px; font-weight:800; color:#ec4899; }
+    .header-actions { display:flex; align-items:center; gap:8px; }
+    .status-badge { font-size:11px; font-weight:700; padding:4px 10px; border-radius:12px; }
+    .badge-approved { background:#064e3b; color:#34d399; }
+    .badge-pending { background:#854d0e; color:#fef08a; }
+
+    .btn-logout {
+      background:#dc2626;
+      color:#fff;
+      border:none;
+      padding:5px 10px;
+      border-radius:6px;
+      font-size:11px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .container { max-width:600px; margin:0 auto; padding:14px; }
+
+    .card-box {
+      background:#1e293b;
+      border:1px solid #334155;
+      border-radius:12px;
+      padding:18px;
+      margin-bottom:16px;
+    }
+    .card-title { font-size:15px; font-weight:800; color:#ec4899; margin-bottom:12px; }
+    .field-label { font-size:11.5px; color:#94a3b8; margin-bottom:4px; display:block; }
+    .input-field {
+      width:100%;
+      background:#0f172a;
+      border:1px solid #334155;
+      color:#fff;
+      padding:10px;
+      border-radius:6px;
+      font-size:12.5px;
+      margin-bottom:10px;
+    }
+    .file-input-box {
+      background:#0f172a;
+      border:1.5px dashed #334155;
+      padding:10px;
+      border-radius:6px;
+      margin-bottom:10px;
+      font-size:11.5px;
+      color:#cbd5e1;
+    }
+
+    /* 8 Comprehensive Bilingual Legal Terms Box */
+    .terms-box {
+      background:#0b1120;
+      border:1.5px solid #be185d;
+      border-radius:6px;
+      padding:12px;
+      font-size:11px;
+      color:#e2e8f0;
+      max-height:210px;
+      overflow-y:auto;
+      line-height:1.5;
+      margin-bottom:12px;
+    }
+    .term-item { margin-bottom: 12px; border-bottom: 1px dashed #1e293b; padding-bottom: 8px; }
+    .term-en { color: #94a3b8; font-size: 10.5px; margin-top: 2px; }
+
+    .btn-action {
+      background:#16a34a;
+      color:white;
+      border:none;
+      width:100%;
+      padding:13px;
+      border-radius:6px;
+      font-size:13px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .profile-header {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      background:#1e293b;
+      padding:14px;
+      border-radius:12px;
+      border:1px solid #334155;
+      margin-bottom:14px;
+    }
+    .profile-avatar {
+      width:54px;
+      height:54px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid #ec4899;
+      background:#0f172a;
+    }
+
+    .gps-status-box {
+      background:#0f172a;
+      border:1px solid #334155;
+      border-radius:8px;
+      padding:8px 12px;
+      font-size:11.5px;
+      color:#38bdf8;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:14px;
+    }
+
+    .wallet-card {
+      background:linear-gradient(135deg, #be185d, #831843);
+      padding:18px;
+      border-radius:12px;
+      margin-bottom:16px;
+    }
+    .wallet-title { font-size:11.5px; color:#fce7f3; text-transform:uppercase; font-weight:600; }
+    .wallet-balance { font-size:26px; font-weight:800; color:#fff; margin-top:4px; }
+
+    .tab-bar {
+      display:flex;
+      background:#1e293b;
+      border-radius:8px;
+      padding:4px;
+      margin-bottom:14px;
+      border:1px solid #334155;
+    }
+    .tab-btn {
+      flex:1;
+      background:transparent;
+      border:none;
+      color:#94a3b8;
+      padding:8px;
+      font-size:12px;
+      font-weight:700;
+      border-radius:6px;
+      cursor:pointer;
+    }
+    .tab-btn.active { background:#ec4899; color:#fff; }
+
+    .job-card {
+      background:#1e293b;
+      border:1px solid #334155;
+      border-radius:10px;
+      padding:14px;
+      margin-bottom:12px;
+    }
+    .job-header { display:flex; justify-content:space-between; border-bottom:1px solid #334155; padding-bottom:6px; margin-bottom:8px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand">🌸 Rinzhu Partner</div>
+      <div style="font-size:10px; color:#94a3b8;">A Unit of Inten Agency</div>
+    </div>
+    <div class="header-actions">
+      <div id="top-status-badge" class="status-badge badge-pending">Verification Required</div>
+      <button id="btn-header-logout" class="btn-logout" onclick="partnerLogout()" style="display:none;" title="Switch Account">🚪 Logout</button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div id="partner-reg-view" style="display:none;">
+      <div class="card-box">
+        <div class="card-title">📝 Beautician Partner Registration & Official KYC</div>
+        
+        <span class="field-label">Aapka Pura Naam (Aadhaar ke anusar):</span>
+        <input type="text" id="reg-name" class="input-field" placeholder="Full Legal Name" />
+
+        <span class="field-label">10-Digit Mobile Number (Calling + WhatsApp):</span>
+        <input type="tel" id="reg-phone" class="input-field" placeholder="e.g. 9876543210" maxlength="10" />
+
+        <span class="field-label" style="color:#38bdf8; font-weight:bold;">Aapki Passport Size / Clean Photo (Profile Picture):</span>
+        <div class="file-input-box">
+          <input type="file" id="reg-profile-img" accept="image/*" />
+        </div>
+
+        <span class="field-label">12-Digit Aadhaar Number:</span>
+        <input type="text" id="reg-aadhaar" class="input-field" placeholder="12-digit Aadhaar Number" maxlength="14" />
+
+        <span class="field-label" style="color:#38bdf8; font-weight:bold;">Aadhaar Card Front Photo (सामने का फोटो):</span>
+        <div class="file-input-box">
+          <input type="file" id="reg-aadhaar-front" accept="image/*" />
+        </div>
+
+        <span class="field-label" style="color:#38bdf8; font-weight:bold;">Aadhaar Card Back Photo (पीछे का पता वाला फोटो):</span>
+        <div class="file-input-box">
+          <input type="file" id="reg-aadhaar-back" accept="image/*" />
+        </div>
+
+        <span class="field-label">10-Digit PAN Card Number:</span>
+        <input type="text" id="reg-pan" class="input-field" placeholder="ABCDE1234F" style="text-transform:uppercase;" />
+
+        <span class="field-label">PAN Card Photo:</span>
+        <div class="file-input-box">
+          <input type="file" id="reg-pan-img" accept="image/*" />
+        </div>
+
+        <span class="field-label">Service Area / City / Ward:</span>
+        <input type="text" id="reg-area" class="input-field" placeholder="Tehsil / Ward / Neighborhood" />
+
+        <span class="field-label">Salon / Grooming Experience:</span>
+        <input type="text" id="reg-exp" class="input-field" placeholder="e.g., 3 Saal ka Parlour Experience" />
+
+        <span class="field-label">Payout UPI ID (80% Kamai lene ke liye):</span>
+        <input type="text" id="reg-upi" class="input-field" placeholder="username@paytm / @upi" />
+
+        <span class="field-label" style="color:#f43f5e; font-weight:bold;">Terms, Indemnity & Code of Conduct (8 कानूनी नियम एवं शर्तें):</span>
+        <div class="terms-box">
+          
+          <div class="term-item">
+            <b>1. Independent Freelancer (स्वतंत्र पार्टनर):</b><br>
+            ब्यूटिशियन एक स्वतंत्र पार्टनर (Freelancer) है, Inten Agency या Rinzhu Beauty की कर्मचारी (Employee) नहीं।
+            <div class="term-en">The Beautician operates as an independent contractor/freelancer and holds no employer-employee relationship with Inten Agency or Rinzhu Beauty.</div>
+          </div>
+
+          <div class="term-item">
+            <b>2. Zero Company Liability (कंपनी की शून्य देयता):</b><br>
+            सर्विस के दौरान किसी भी स्किन एलर्जी, कट, केमिकल रिएक्शन या शारीरिक नुकसान की पूरी कानूनी और आर्थिक जिम्मेदारी केवल ब्यूटिशियन की होगी। Inten Agency पर कोई दावा नहीं किया जा सकता।
+            <div class="term-en">Inten Agency bears zero legal or financial liability for skin reactions, injuries, cuts, or damages caused during service. The partner bears sole responsibility.</div>
+          </div>
+
+          <div class="term-item">
+            <b>3. Authentic Products Guarantee (ओरिजिनल प्रोडक्ट्स की गारंटी):</b><br>
+            ब्यूटिशियन केवल सीलबंद, असली और बिना एक्सपायरी वाले हाइजीनिक प्रोडक्ट्स उपयोग करेगी। डुप्लीकेट या एक्सपायर्ड केमिकल उपयोग करने पर कानूनी कार्रवाई होगी।
+            <div class="term-en">The partner must exclusively use unexpired, genuine, and hygienic salon products. Using counterfeit or harmful cosmetics will attract criminal prosecution.</div>
+          </div>
+
+          <div class="term-item">
+            <b>4. Criminal & Moral Conduct (आपराधिक एवं नैतिक आचरण):</b><br>
+            ग्राहक के घर किसी भी चोरी, गाली-गलौज, दुर्व्यवहार या अनैतिक कार्य के लिए ब्यूटिशियन व्यक्तिगत रूप से पुलिस व BNS (भारतीय न्याय संहिता) धाराओं के तहत उत्तरदायी होगी।
+            <div class="term-en">Any theft, verbal misconduct, abuse, or moral offences at client premises will lead to immediate partner termination and direct police FIR under relevant BNS sections.</div>
+          </div>
+
+          <div class="term-item">
+            <b>5. Customer Privacy & Direct Dealing (गोपनीयता):</b><br>
+            ग्राहक का नंबर या पता किसी अन्य व्यक्ति को देना अथवा प्लेटफॉर्म को बाईपास करके डायरेक्ट सर्विस देना सख्त वर्जित है।
+            <div class="term-en">Customer personal data must remain confidential. Bypassing the platform to execute private off-book deals is strictly prohibited.</div>
+          </div>
+
+          <div class="term-item">
+            <b>6. 80/20 Revenue Settlement (भुगतान निपटान):</b><br>
+            COD ऑर्डर्स में से 20% प्लेटफॉर्म शेयर साप्ताहिक निपटान (Weekly Settlement) पर Inten Agency को जमा करना अनिवार्य होगा।
+            <div class="term-en">For cash-on-delivery orders, the partner is obligated to remit the 20% platform & franchise commission during the scheduled settlement.</div>
+          </div>
+
+          <div class="term-item">
+            <b>7. Travel & Accidental Risk (यात्रा सुरक्षा):</b><br>
+            ग्राहक के पते पर आने-जाने के दौरान किसी भी सड़क दुर्घटना या ट्रैफिक उल्लंघन की जिम्मेदारी कंपनी की नहीं होगी।
+            <div class="term-en">Inten Agency assumes no responsibility for travel risks, road accidents, or traffic penalties during transit to customer premises.</div>
+          </div>
+
+          <div class="term-item">
+            <b>8. Legal Jurisdiction (कानूनी अधिकार क्षेत्र):</b><br>
+            किसी भी कानूनी विवाद की स्थिति में न्यायिक क्षेत्र एजेंसी के मुख्य पंजीकृत कार्यालय की स्थानीय अदालत के अधीन होगा।
+            <div class="term-en">All disputes are subject to the exclusive jurisdiction of the competent courts in the registered district headquarters of Inten Agency.</div>
+          </div>
+
+        </div>
+
+        <div style="display:flex; align-items:flex-start; gap:8px; margin-bottom:14px;">
+          <input type="checkbox" id="reg-agree" style="width:20px; height:20px; margin-top:2px; accent-color:#ec4899; cursor:pointer;" />
+          <label for="reg-agree" style="font-size:11px; color:#cbd5e1; line-height:1.4; cursor:pointer;">
+            I have read, understood and accepted all 8 Terms, Conditions & Indemnity clauses (मैंने सभी 8 नियम, शर्तें और कंपनी की देयता मुक्ति बिंदु पढ़ लिए हैं तथा पूर्णतः सहमत हूँ).
+          </label>
+        </div>
+
+        <button type="button" id="btn-submit-kyc" class="btn-action" onclick="submitPartnerKYC()">Submit KYC & Documents</button>
+      </div>
+    </div>
+
+    <div id="partner-waiting-view" style="display:none;">
+      <div class="card-box" style="text-align:center; padding:30px 16px;">
+        <div style="font-size:38px; margin-bottom:10px;">⏳</div>
+        <h3 style="color:#fef08a; font-size:16px; margin-bottom:6px;">KYC Under District Admin Verification</h3>
+        <p style="font-size:12px; color:#94a3b8; line-height:1.5;">
+          Aapki Profile Photo, Documents (Aadhaar Front & Back) aur 8-Point Legal Agreement District Admin dwara jaanche ja rahe hain. Verification approve hote hi Live Order Stream unlock ho jayegi.
+        </p>
+        <div style="display:flex; gap:8px; justify-content:center; margin-top:14px;">
+          <button onclick="checkPartnerState()" style="background:#0284c7; color:#fff; border:none; padding:8px 14px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">🔄 Refresh Status</button>
+          <button onclick="partnerLogout()" style="background:#475569; color:#fff; border:none; padding:8px 14px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">🚪 Switch Profile</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="partner-dashboard-view" style="display:none;">
+      <div class="profile-header">
+        <img id="partner-dp" src="" class="profile-avatar" alt="Partner DP" />
+        <div style="flex:1;">
+          <div style="font-weight:800; font-size:14px;" id="partner-name-disp">Partner Name</div>
+          <div style="font-size:11px; color:#34d399; font-weight:bold;">● Verified Beautician</div>
+        </div>
+      </div>
+
+      <div class="gps-status-box">
+        <span>📍 10 KM Live Radar: <b id="gps-radar-text" style="color:#34d399;">Active (Syncing GPS)</b></span>
+        <button onclick="syncBeauticianGPS()" style="background:#0284c7; border:none; color:#fff; padding:4px 8px; border-radius:4px; font-size:10.5px; font-weight:bold; cursor:pointer;">🔄 Re-sync</button>
+      </div>
+
+      <div class="wallet-card">
+        <div class="wallet-title">Aapki Shuddh Kamai (80% Payout)</div>
+        <div class="wallet-balance" id="partner-wallet">₹0</div>
+        <div style="font-size:11px; color:#fce7f3; margin-top:4px;">Total Completed Orders: <span id="partner-orders-count">0</span></div>
+      </div>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" id="tab-new" onclick="switchJobTab('new')">Live Orders (<span id="count-new">0</span>)</button>
+        <button class="tab-btn" id="tab-accepted" onclick="switchJobTab('accepted')">My Active Jobs (<span id="count-active">0</span>)</button>
+      </div>
+
+      <div id="orders-container"></div>
+    </div>
+
+  </div>
+
+  <script>
+    let activeJobTab = 'new';
+    let currentPartnerPhone = localStorage.getItem('rinzhu_current_partner_phone') || '';
+
+    function getDistanceInKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * (Math.PI / 180);
+      const dLon = (lon2 - lon1) * (Math.PI / 180);
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function syncBeauticianGPS() {
+      if (navigator.geolocation && currentPartnerPhone) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          let partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+          let me = partners.find(p => p.phone === currentPartnerPhone);
+          if (me) {
+            me.lat = Number(pos.coords.latitude.toFixed(6));
+            me.lng = Number(pos.coords.longitude.toFixed(6));
+            localStorage.setItem('rinzhu_beauticians', JSON.stringify(partners));
+            const el = document.getElementById('gps-radar-text');
+            if(el) el.innerText = `Locked (10 KM Radar Ready)`;
+          }
+        }, () => {
+          const el = document.getElementById('gps-radar-text');
+          if(el) el.innerText = `GPS Offline (Location Allow Karein)`;
+        });
+      }
+    }
+
+    function partnerLogout() {
+      if (confirm("Kya aap naya account register ya dusre number par switch karna chahte hain?")) {
+        localStorage.removeItem('rinzhu_current_partner_phone');
+        currentPartnerPhone = '';
+        checkPartnerState();
+      }
+    }
+
+    function checkPartnerState() {
+      const partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+      const logoutBtn = document.getElementById('btn-header-logout');
+
+      if (!currentPartnerPhone) {
+        if(logoutBtn) logoutBtn.style.display = 'none';
+        document.getElementById('top-status-badge').className = "status-badge badge-pending";
+        document.getElementById('top-status-badge').innerText = "Registration Required";
+        showView('reg');
+        return;
+      }
+
+      if(logoutBtn) logoutBtn.style.display = 'block';
+      const me = partners.find(p => p.phone === currentPartnerPhone);
+
+      if (!me) {
+        showView('reg');
+      } else if (me.status === 'Approved') {
+        document.getElementById('top-status-badge').className = "status-badge badge-approved";
+        document.getElementById('top-status-badge').innerText = "● KYC Verified";
+        document.getElementById('partner-name-disp').innerText = me.name;
+        document.getElementById('partner-dp').src = me.profileImg || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="%23ec4899"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
+        showView('dashboard');
+        syncBeauticianGPS();
+        renderOrders();
+      } else {
+        document.getElementById('top-status-badge').className = "status-badge badge-pending";
+        document.getElementById('top-status-badge').innerText = "Verification Pending";
+        showView('waiting');
+      }
+    }
+
+    function showView(view) {
+      document.getElementById('partner-reg-view').style.display = (view === 'reg') ? 'block' : 'none';
+      document.getElementById('partner-waiting-view').style.display = (view === 'waiting') ? 'block' : 'none';
+      document.getElementById('partner-dashboard-view').style.display = (view === 'dashboard') ? 'block' : 'none';
+    }
+
+    /* Auto Compress Images below 80KB to avoid localStorage crash */
+    function compressImage(file) {
+      return new Promise((resolve) => {
+        if (!file) { resolve(''); return; }
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 600;
+            const scaleSize = MAX_WIDTH / img.width;
+            canvas.width = (img.width > MAX_WIDTH) ? MAX_WIDTH : img.width;
+            canvas.height = (img.width > MAX_WIDTH) ? (img.height * scaleSize) : img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', 0.6));
+          };
+          img.onerror = () => resolve('');
+        };
+        reader.onerror = () => resolve('');
+      });
+    }
+
+    async function submitPartnerKYC() {
+      const btn = document.getElementById('btn-submit-kyc');
+      const name = document.getElementById('reg-name').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const rawAadhaar = document.getElementById('reg-aadhaar').value.replace(/\s+/g, '');
+      const pan = document.getElementById('reg-pan').value.trim().toUpperCase();
+      const area = document.getElementById('reg-area').value.trim();
+      const exp = document.getElementById('reg-exp').value.trim();
+      const upi = document.getElementById('reg-upi').value.trim();
+      const agreed = document.getElementById('reg-agree').checked;
+
+      const profileFile = document.getElementById('reg-profile-img').files[0];
+      const aadhaarFrontFile = document.getElementById('reg-aadhaar-front').files[0];
+      const aadhaarBackFile = document.getElementById('reg-aadhaar-back').files[0];
+      const panFile = document.getElementById('reg-pan-img').files[0];
+
+      if (!name) {
+        alert("Kripya apna pura naam darj karein!");
+        return;
+      }
+      if (phone.length < 10) {
+        alert("Kripya 10-digit mobile number darj karein!");
+        return;
+      }
+      if (rawAadhaar.length < 12) {
+        alert("Kripya valid 12-digit Aadhaar Number darj karein!");
+        return;
+      }
+      if (!agreed) {
+        alert("Kripya sabhi 8 Terms & Conditions ko tick karke accept karein!");
+        return;
+      }
+
+      btn.innerText = "⏳ Processing Documents...";
+      btn.disabled = true;
+
+      try {
+        let profileBase64 = await compressImage(profileFile);
+        let aadhaarFrontBase64 = await compressImage(aadhaarFrontFile);
+        let aadhaarBackBase64 = await compressImage(aadhaarBackFile);
+        let panBase64 = await compressImage(panFile);
+
+        const partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+        const newPartner = {
+          id: "B-" + Math.floor(100 + Math.random() * 900),
+          name: name,
+          phone: phone,
+          profileImg: profileBase64,
+          aadhaar: rawAadhaar,
+          aadhaarFrontImg: aadhaarFrontBase64,
+          aadhaarBackImg: aadhaarBackBase64,
+          aadhaarImg: aadhaarFrontBase64 || aadhaarBackBase64,
+          pan: pan || 'Not Provided',
+          panImg: panBase64,
+          area: area || "District Center",
+          exp: exp || "Certified Specialist",
+          upi: upi || "Pending Setup",
+          termsAgreed: true,
+          legalIndemnitySigned: "Yes - Full 8 Bilingual Clauses (BNS Compliant) Accepted",
+          status: "Pending",
+          lat: null,
+          lng: null,
+          appliedDate: new Date().toLocaleDateString()
+        };
+
+        partners.push(newPartner);
+        localStorage.setItem('rinzhu_beauticians', JSON.stringify(partners));
+        localStorage.setItem('rinzhu_current_partner_phone', phone);
+        currentPartnerPhone = phone;
+
+        alert("Aadhaar (Front/Back) aur BNS niyamavli safaltapoorvak submit ho gayi hai! Verification ke liye bhej diya gaya hai.");
+        checkPartnerState();
+      } catch (err) {
+        alert("Storage Full Error: Kripya browser cache clear karein ya direct choti photo upload karein.");
+        console.error(err);
+      } finally {
+        btn.innerText = "Submit KYC & Documents";
+        btn.disabled = false;
+      }
+    }
+
+    function switchJobTab(tab) {
+      activeJobTab = tab;
+      document.getElementById('tab-new').classList.toggle('active', tab === 'new');
+      document.getElementById('tab-accepted').classList.toggle('active', tab === 'accepted');
+      renderOrders();
+    }
+
+    // Direct Calling Protocol (Clean 10 Digits)
+    function makeDirectCall(phone) {
+      if (!phone) {
+        alert("Customer ka phone number uplabdh nahi hai.");
+        return;
+      }
+      const cleanNumber = phone.replace(/[^0-9]/g, '').slice(-10);
+      if (cleanNumber.length < 10) {
+        alert("Invalid number: " + phone);
+        return;
+      }
+      window.location.href = "tel:+91" + cleanNumber;
+    }
+
+    function renderOrders() {
+      const orders = JSON.parse(localStorage.getItem('rinzhu_orders')) || [];
+      const partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+      const me = partners.find(p => p.phone === currentPartnerPhone);
+      const container = document.getElementById('orders-container');
+
+      const newOrders = orders.filter(o => {
+        if (o.status !== 'Pending') return false;
+        if (me && me.lat && me.lng && o.custLat && o.custLng) {
+          const dist = getDistanceInKm(me.lat, me.lng, o.custLat, o.custLng);
+          o.calcDistance = dist.toFixed(1);
+          return dist <= 10.0;
+        }
+        return true;
+      });
+
+      const acceptedOrders = orders.filter(o => o.status === 'Accepted');
+      const completedOrders = orders.filter(o => o.status === 'Completed');
+
+      document.getElementById('count-new').innerText = newOrders.length;
+      document.getElementById('count-active').innerText = acceptedOrders.length;
+
+      let totalKamai = 0;
+      completedOrders.forEach(o => { totalKamai += Math.round(o.serviceBill * 0.80); });
+      document.getElementById('partner-wallet').innerText = "₹" + totalKamai;
+      document.getElementById('partner-orders-count').innerText = completedOrders.length;
+
+      const list = activeJobTab === 'new' ? newOrders : acceptedOrders;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:30px; color:#64748b; background:#1e293b; border-radius:10px; border:1px dashed #334155;">
+            📭 Abhi aapke 10 KM ke daayre me koi naya order nahi hai.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(o => {
+        const share = Math.round(o.serviceBill * 0.80);
+        const distBadge = o.calcDistance ? `<span style="background:#0284c7; color:#fff; font-size:10px; padding:2px 6px; border-radius:4px;">📍 ${o.calcDistance} KM Door</span>` : '';
+        const navUrl = o.googleMapsLocation && o.googleMapsLocation.startsWith('http')
+          ? o.googleMapsLocation
+          : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(o.deliveryAddress)}`;
+
+        if (activeJobTab === 'new') {
+          return `
+            <div class="job-card" style="border-left:4px solid #ec4899;">
+              <div class="job-header">
+                <div>
+                  <span style="font-weight:800; color:#38bdf8;">${o.id}</span>
+                  ${distBadge}
+                </div>
+                <span style="color:#4ade80; font-weight:800;">Aapka 80%: ₹${share}</span>
+              </div>
+              <p style="font-size:12px; color:#cbd5e1;"><b>Services:</b> ${o.services}</p>
+              ${o.staffRequired ? `<p style="font-size:11px; color:#f59e0b; margin-top:2px;"><b>Staff Required:</b> ${o.staffRequired}</p>` : ''}
+              <p style="font-size:11.5px; color:#94a3b8; margin-top:2px;"><b>Address:</b> ${o.deliveryAddress}</p>
+              <button onclick="acceptOrder('${o.id}')" style="background:#16a34a; color:#fff; border:none; width:100%; padding:10px; border-radius:6px; font-weight:bold; margin-top:10px; cursor:pointer;">✔ Accept Order (₹${share})</button>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="job-card" style="border-left:4px solid #16a34a;">
+              <div class="job-header">
+                <span style="font-weight:800; color:#38bdf8;">${o.id}</span>
+                <span style="color:#4ade80; font-weight:800;">Payout: ₹${share}</span>
+              </div>
+              <p style="font-size:12px; color:#cbd5e1;"><b>Customer:</b> +91 ${o.customerPhone}</p>
+              <p style="font-size:12px; color:#cbd5e1;"><b>Address:</b> ${o.deliveryAddress}</p>
+              <div style="display:flex; gap:6px; margin-top:10px;">
+                <a href="${navUrl}" target="_blank" style="flex:1; background:#0284c7; color:#fff; text-align:center; padding:8px; border-radius:6px; text-decoration:none; font-size:11.5px; font-weight:bold;">📍 Google Maps</a>
+                <button onclick="makeDirectCall('${o.customerPhone}')" style="background:#475569; color:#fff; border:none; padding:8px 12px; border-radius:6px; font-size:11.5px; font-weight:bold; cursor:pointer;">📞 Call</button>
+              </div>
+              <button onclick="completeOrder('${o.id}')" style="background:#0284c7; color:#fff; border:none; width:100%; padding:9px; border-radius:6px; font-weight:bold; margin-top:10px; cursor:pointer;">✔ Complete Service (Receive ₹${share})</button>
+            </div>
+          `;
+        }
+      }).join('');
+    }
+
+    function acceptOrder(id) {
+      let orders = JSON.parse(localStorage.getItem('rinzhu_orders')) || [];
+      const ord = orders.find(x => x.id === id);
+      if (ord) {
+        ord.status = 'Accepted';
+        ord.assignedTo = currentPartnerPhone;
+        localStorage.setItem('rinzhu_orders', JSON.stringify(orders));
+        switchJobTab('accepted');
+      }
+    }
+
+    function completeOrder(id) {
+      let orders = JSON.parse(localStorage.getItem('rinzhu_orders')) || [];
+      const ord = orders.find(x => x.id === id);
+      if (ord) {
+        ord.status = 'Completed';
+        localStorage.setItem('rinzhu_orders', JSON.stringify(orders));
+        renderOrders();
+
+        // 🌸 Automated Customer WhatsApp Review Trigger
+        const ratingUrl = `rating.html?orderId=${ord.id}`;
+        const msg = `🌸 *Rinzhu Beauty - Service Completed!*\n\n` +
+                    `Priya Customer, aapka salon order (*${ord.id}*) safaltapoorvak pura ho gaya hai.\n\n` +
+                    `⭐ Kripya apni beautician ko rating aur review dene ke liye neeche diye gaye link par click karein:\n` +
+                    `${ratingUrl}\n\n` +
+                    `_Inten Agency aapke feedback ka samman karti hai._`;
+
+        if (confirm("Service complete ho gayi! Kya aap customer ko Rating & Feedback link WhatsApp par bhejna chahte hain?")) {
+          window.open(`https://wa.me/91${ord.customerPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+      }
+    }
+
+    checkPartnerState();
+    setInterval(() => {
+      if (document.getElementById('partner-dashboard-view').style.display === 'block') {
+        renderOrders();
+      }
+    }, 4000);
+  </script>
+</body>
+</html>
