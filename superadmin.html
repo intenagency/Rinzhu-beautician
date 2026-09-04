@@ -1,1 +1,734 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rinzhu Beauty - Master Super Admin</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background:#0b1120; color:#f8fafc; padding-bottom:60px; }
 
+    /* Login Lock Screen */
+    #lock-screen {
+      position:fixed;
+      inset:0;
+      background:#0b1120;
+      z-index:99999;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:18px;
+    }
+    .lock-box {
+      background:#111827;
+      border:1.5px solid #ec4899;
+      border-radius:12px;
+      max-width:360px;
+      width:100%;
+      padding:24px 20px;
+      text-align:center;
+      box-shadow:0 10px 25px rgba(236, 72, 153, 0.2);
+    }
+    .lock-title { font-size:16px; font-weight:800; color:#ec4899; margin-bottom:4px; }
+    .lock-sub { font-size:11px; color:#94a3b8; margin-bottom:16px; }
+    .lock-input {
+      width:100%;
+      background:#0f172a;
+      border:1px solid #334155;
+      color:#fff;
+      padding:11px;
+      border-radius:6px;
+      font-size:13px;
+      margin-bottom:12px;
+      text-align:center;
+    }
+    .btn-unlock {
+      background:#ec4899;
+      color:#fff;
+      border:none;
+      width:100%;
+      padding:11px;
+      border-radius:6px;
+      font-size:12.5px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    /* Main Header */
+    header {
+      background:#111827;
+      padding:14px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid #1f2937;
+    }
+    .brand-title {
+      font-size:16px;
+      font-weight:800;
+      color:#ec4899;
+      display:flex;
+      align-items:center;
+      gap:4px;
+    }
+    .btn-header-logout {
+      background:#ef4444;
+      color:#fff;
+      border:none;
+      padding:5px 12px;
+      border-radius:6px;
+      font-size:11px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .container { max-width:650px; margin:0 auto; padding:14px; }
+
+    /* Top Stats Grid */
+    .grid-stats {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-bottom:16px;
+    }
+    .stat-card {
+      background:#111827;
+      border:1px solid #1f2937;
+      border-radius:10px;
+      padding:14px 16px;
+    }
+    .stat-card-title {
+      font-size:11.5px;
+      color:#94a3b8;
+      font-weight:600;
+    }
+    .stat-card-val {
+      font-size:24px;
+      font-weight:800;
+      color:#38bdf8;
+      margin-top:4px;
+    }
+
+    /* Private Document & Legal Vault */
+    .vault-box {
+      background:#111827;
+      border:1px solid #1f2937;
+      border-left:4px solid #ec4899;
+      border-radius:12px;
+      padding:14px;
+      margin-bottom:16px;
+    }
+    .vault-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    .vault-heading {
+      font-size:13.5px;
+      font-weight:800;
+      color:#f43f5e;
+    }
+    .vault-sub {
+      font-size:11px;
+      color:#94a3b8;
+      margin-top:2px;
+    }
+    .badge-confidential {
+      background:#be185d;
+      color:#fff;
+      font-size:9.5px;
+      font-weight:700;
+      padding:3px 8px;
+      border-radius:10px;
+    }
+
+    .vault-link {
+      text-decoration:none;
+      display:block;
+    }
+    .vault-item {
+      background:#0f172a;
+      border:1px solid #1f2937;
+      border-radius:8px;
+      padding:12px;
+      margin-bottom:8px;
+      transition:0.2s;
+    }
+    .vault-item:hover { border-color:#38bdf8; }
+    .vault-item-title {
+      font-size:12.5px;
+      font-weight:700;
+      color:#38bdf8;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .vault-item-desc {
+      font-size:10.5px;
+      color:#94a3b8;
+      margin-top:2px;
+      padding-left:24px;
+    }
+
+    /* Section Cards */
+    .section-box {
+      background:#111827;
+      border:1px solid #1f2937;
+      border-left:4px solid #10b981;
+      border-radius:12px;
+      padding:14px;
+      margin-bottom:16px;
+    }
+    .section-box.district-box {
+      border-left-color:#38bdf8;
+    }
+    .section-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      margin-bottom:12px;
+    }
+    .section-title { font-size:13.5px; font-weight:800; color:#f8fafc; line-height:1.3; }
+    .section-desc { font-size:10.5px; color:#94a3b8; margin-top:2px; }
+
+    .btn-add-pill {
+      background:#ec4899;
+      color:#fff;
+      border:none;
+      padding:5px 10px;
+      border-radius:6px;
+      font-size:10px;
+      font-weight:700;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+
+    /* Tables */
+    .table-responsive { width:100%; overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; text-align:left; font-size:11px; }
+    th { color:#94a3b8; font-weight:600; padding:8px 6px; border-bottom:1px solid #1f2937; white-space:nowrap; }
+    td { padding:10px 6px; border-bottom:1px solid #0f172a; vertical-align:middle; }
+
+    .st-rejected { color:#ef4444; font-weight:700; }
+    .st-active { color:#10b981; font-weight:700; background:#064e3b; padding:2px 6px; border-radius:4px; font-size:9.5px; }
+    .st-verify { color:#f59e0b; font-weight:700; background:#451a03; padding:2px 6px; border-radius:4px; font-size:9.5px; }
+    .st-open { color:#f97316; font-weight:700; background:#431407; padding:2px 6px; border-radius:4px; font-size:9.5px; }
+
+    .btn-approve {
+      background:#16a34a;
+      color:#fff;
+      border:none;
+      padding:4px 8px;
+      border-radius:5px;
+      font-weight:700;
+      font-size:10px;
+      cursor:pointer;
+    }
+    .btn-del {
+      background:#b91c1c;
+      color:#fff;
+      border:none;
+      padding:4px 8px;
+      border-radius:5px;
+      font-weight:700;
+      font-size:10px;
+      cursor:pointer;
+      margin-left:4px;
+    }
+    .btn-login-admin {
+      background:#0284c7;
+      color:#fff;
+      text-decoration:none;
+      padding:5px 8px;
+      border-radius:5px;
+      font-weight:700;
+      font-size:10px;
+      display:inline-block;
+      white-space:nowrap;
+    }
+    .btn-share-kit {
+      background:#ec4899;
+      color:#fff;
+      text-decoration:none;
+      padding:5px 8px;
+      border-radius:5px;
+      font-weight:700;
+      font-size:10px;
+      display:inline-block;
+      white-space:nowrap;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.85);
+      z-index:999;
+      justify-content:center;
+      align-items:center;
+      padding:14px;
+    }
+    .modal-card {
+      background:#111827;
+      border:1px solid #1f2937;
+      border-radius:10px;
+      width:100%;
+      max-width:380px;
+      padding:16px;
+    }
+    .modal-card input, .modal-card select {
+      width:100%;
+      background:#0f172a;
+      border:1px solid #1f2937;
+      color:#fff;
+      padding:8px 10px;
+      border-radius:6px;
+      font-size:12px;
+      margin-bottom:8px;
+    }
+
+    /* Lightbox Modal */
+    .img-modal {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.92);
+      z-index:9999;
+      justify-content:center;
+      align-items:center;
+      padding:16px;
+    }
+    .img-modal img {
+      max-width:92%;
+      max-height:80vh;
+      border-radius:8px;
+      border:2px solid #ec4899;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔒 Master Password Screen -->
+  <div id="lock-screen">
+    <div class="lock-box">
+      <div style="font-size:28px; margin-bottom:8px;">🔒</div>
+      <div class="lock-title">Super Admin Security Gate</div>
+      <div class="lock-sub">Kripya Master Password Darj Karein</div>
+      <input type="password" id="admin-pass-input" class="lock-input" placeholder="Enter Password" />
+      <button class="btn-unlock" onclick="checkMasterPassword()">Unlock Dashboard</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand-title">
+      ⚡ Rinzhu Beauty – Master Super Admin
+    </div>
+    <button class="btn-header-logout" onclick="adminLogout()">Logout</button>
+  </header>
+
+  <div class="container">
+
+    <!-- Top 4 Business Metric Cards -->
+    <div class="grid-stats">
+      <div class="stat-card">
+        <div class="stat-card-title">Total Platform Profit (50%)</div>
+        <div class="stat-card-val" id="disp-profit">₹246</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-title">Total Completed Orders</div>
+        <div class="stat-card-val" id="disp-orders">2</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-title">Active Districts</div>
+        <div class="stat-card-val" id="disp-districts">3</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-title">Total Beautician Partners</div>
+        <div class="stat-card-val" id="disp-partners">2</div>
+      </div>
+    </div>
+
+    <!-- 🔒 Private Document & Legal Vault -->
+    <div class="vault-box">
+      <div class="vault-header">
+        <div>
+          <div class="vault-heading">🔒 Private Document &amp; Legal Vault</div>
+          <div class="vault-sub">Kewal Super Admin ke print aur share karne ke liye</div>
+        </div>
+        <span class="badge-confidential">Confidential</span>
+      </div>
+
+      <!-- 1. Franchise Pitch Brochure -->
+      <a href="franchise.html" class="vault-link">
+        <div class="vault-item">
+          <div class="vault-item-title">📊 Franchise Pitch Brochure</div>
+          <div class="vault-item-desc">₹50,000 Franchise Presentation (EN / HI)</div>
+        </div>
+      </a>
+
+      <!-- 2. District Franchise Master Kit -->
+      <a href="franchise-kit.html" class="vault-link">
+        <div class="vault-item">
+          <div class="vault-item-title">📜 District Franchise Master Kit</div>
+          <div class="vault-item-desc">MOU Agreement, Certificate &amp; SOP (PDF Print &amp; Share)</div>
+        </div>
+      </a>
+
+      <!-- 3. Beautician Partner Guide -->
+      <a href="beautician-pitch.html" class="vault-link">
+        <div class="vault-item">
+          <div class="vault-item-title">💄 Beautician Partner Guide</div>
+          <div class="vault-item-desc">₹35k–₹70k Earning Math &amp; Safety Guide</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Section 1: Beautician Partner Verification & Approvals -->
+    <div class="section-box">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Beautician Partner Verification &amp; Approvals</div>
+          <div class="section-desc">Super Admin se direct partner approve, reject ya delete karein</div>
+        </div>
+        <button class="btn-add-pill" onclick="openDemoPartnerModal()">+ Add Demo Registration</button>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Partner Name</th>
+              <th>Phone</th>
+              <th>District</th>
+              <th>Docs</th>
+              <th>Status</th>
+              <th style="text-align:right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="partner-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 2: Authorized District Franchise Portals -->
+    <div class="section-box district-box">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Authorized District Franchise Portals</div>
+          <div class="section-desc">District level agency nodes &amp; share distribution</div>
+        </div>
+        <button class="btn-add-pill" onclick="openNewDistrictModal()">+ Add New District</button>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>District</th>
+              <th>Franchise Fee</th>
+              <th>Commission Share</th>
+              <th>Status</th>
+              <th style="text-align:right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="district-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal: Lightbox Image Viewer -->
+  <div id="modal-lightbox" class="img-modal" onclick="this.style.display='none'">
+    <img id="lightbox-target" src="" alt="Document Preview" />
+  </div>
+
+  <!-- Modal: Add Demo Partner -->
+  <div id="modal-partner" class="modal-overlay">
+    <div class="modal-card">
+      <h4 style="font-size:13px; color:#ec4899; margin-bottom:10px;">+ Add New Beautician Demo</h4>
+      <input type="text" id="m-name" placeholder="Partner Name (e.g. Sawan / Pooja)" />
+      <input type="text" id="m-phone" placeholder="10-digit Phone Number" />
+      <input type="text" id="m-district" placeholder="District (e.g. Aurangabad)" />
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button onclick="closeModal('modal-partner')" style="flex:1; background:#475569; color:#fff; border:none; padding:8px; border-radius:6px; font-size:11px; cursor:pointer;">Cancel</button>
+        <button onclick="saveDemoPartner()" style="flex:1; background:#16a34a; color:#fff; border:none; padding:8px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Add Partner</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add New District -->
+  <div id="modal-district" class="modal-overlay">
+    <div class="modal-card">
+      <h4 style="font-size:13px; color:#38bdf8; margin-bottom:10px;">+ Add New District Franchise</h4>
+      <input type="text" id="d-name" placeholder="District Name (e.g. Rohtas / Arwal)" />
+      <input type="text" id="d-fee" placeholder="Franchise Fee (e.g. ₹50,000)" />
+      <select id="d-status">
+        <option value="Active">Active (Paid)</option>
+        <option value="Under Verification">Under Verification (Reserved)</option>
+        <option value="Open for Allotment">Open for Allotment</option>
+      </select>
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button onclick="closeModal('modal-district')" style="flex:1; background:#475569; color:#fff; border:none; padding:8px; border-radius:6px; font-size:11px; cursor:pointer;">Cancel</button>
+        <button onclick="saveNewDistrict()" style="flex:1; background:#0284c7; color:#fff; border:none; padding:8px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Create Node</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const MASTER_PASS = "yogesh@123321";
+
+    // 🔒 Password Verification Logic
+    function checkMasterPassword() {
+      const input = document.getElementById('admin-pass-input').value.trim();
+      if (input === MASTER_PASS) {
+        sessionStorage.setItem('rinzhu_master_auth', 'true');
+        document.getElementById('lock-screen').style.display = 'none';
+      } else {
+        alert("Galat Password! Keval Master Super Admin ko access ki anumati hai.");
+        document.getElementById('admin-pass-input').value = '';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('rinzhu_master_auth') === 'true') {
+        document.getElementById('lock-screen').style.display = 'none';
+      }
+    });
+
+    function adminLogout() {
+      sessionStorage.removeItem('rinzhu_master_auth');
+      document.getElementById('lock-screen').style.display = 'flex';
+      document.getElementById('admin-pass-input').value = '';
+      alert("Master Super Admin session successfully logged out.");
+    }
+
+    function viewImg(base64) {
+      if (!base64) {
+        alert("Photo upload nahi ki gayi thi.");
+        return;
+      }
+      document.getElementById('lightbox-target').src = base64;
+      document.getElementById('modal-lightbox').style.display = 'flex';
+    }
+
+    // Seed Data Setup
+    function seedDataIfEmpty() {
+      if (!localStorage.getItem('rinzhu_beauticians') || JSON.parse(localStorage.getItem('rinzhu_beauticians')).length === 0) {
+        const initialPartners = [
+          { id: "B-101", name: "sawan", phone: "9472320372", area: "Aurangabad", status: "Rejected" },
+          { id: "B-102", name: "Rani", phone: "1472583690", area: "Aurangabad", status: "Rejected" }
+        ];
+        localStorage.setItem('rinzhu_beauticians', JSON.stringify(initialPartners));
+      }
+
+      if (!localStorage.getItem('rinzhu_districts') || JSON.parse(localStorage.getItem('rinzhu_districts')).length === 0) {
+        const initialDistricts = [
+          { id: "D-1", name: "Aurangabad", fee: "₹50,000", sub: "(Paid)", share: "50% Platform Share", status: "Active" },
+          { id: "D-2", name: "Patna", fee: "₹50,000", sub: "(Reserved)", share: "50% Platform Share", status: "Under Verification" },
+          { id: "D-3", name: "Gaya", fee: "₹50,000", sub: "(Open)", share: "50% Platform Share", status: "Open for Allotment" }
+        ];
+        localStorage.setItem('rinzhu_districts', JSON.stringify(initialDistricts));
+      }
+    }
+
+    function renderSuperAdmin() {
+      const partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+      const orders = JSON.parse(localStorage.getItem('rinzhu_orders')) || [];
+      const districts = JSON.parse(localStorage.getItem('rinzhu_districts')) || [];
+
+      // Financials & Counts
+      let profit = 0;
+      let completedOrders = 0;
+      orders.forEach(o => {
+        if (o.status === 'Completed') {
+          completedOrders++;
+          profit += Math.round((Number(o.serviceBill) || 0) * 0.50);
+        }
+      });
+
+      document.getElementById('disp-profit').innerText = "₹" + (profit > 0 ? profit : 246);
+      document.getElementById('disp-orders').innerText = completedOrders > 0 ? completedOrders : 2;
+      document.getElementById('disp-partners').innerText = partners.length;
+      document.getElementById('disp-districts').innerText = districts.length;
+
+      // 1. Render Beauticians Table
+      const partnerTbody = document.getElementById('partner-table-body');
+      if (partners.length === 0) {
+        partnerTbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#64748b; padding:16px;">Koi partner registered nahi hai</td></tr>`;
+      } else {
+        partnerTbody.innerHTML = partners.map(p => {
+          const isApproved = p.status === 'Approved';
+          const statusHtml = isApproved 
+            ? `<span style="color:#10b981; font-weight:700;">Approved</span>`
+            : `<span class="st-rejected">Rejected</span>`;
+
+          const actionBtn = isApproved
+            ? `<button onclick="toggleApproval('${p.id}', 'Rejected')" style="background:#dc2626; color:#fff; border:none; padding:4px 8px; border-radius:5px; font-size:10px; font-weight:700; cursor:pointer;">✕ Reject</button>`
+            : `<button onclick="toggleApproval('${p.id}', 'Approved')" class="btn-approve">✔ Approve</button>`;
+
+          const docsIcon = (p.aadhaarImg || p.profileImg) 
+            ? `<span onclick="viewImg('${p.profileImg || p.aadhaarImg}')" style="color:#38bdf8; cursor:pointer; font-weight:bold; font-size:11px;">👁 View</span>` 
+            : `<span style="color:#64748b;">—</span>`;
+
+          return `
+            <tr>
+              <td><b>${p.name}</b></td>
+              <td>${p.phone}</td>
+              <td>${p.area || 'Aurangabad'}</td>
+              <td>${docsIcon}</td>
+              <td>${statusHtml}</td>
+              <td style="text-align:right;">
+                ${actionBtn}
+                <button class="btn-del" onclick="deletePartner('${p.id}', '${p.name}')">🗑 Del</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 2. Render District Franchise Table
+      const districtTbody = document.getElementById('district-table-body');
+      if (districts.length === 0) {
+        districtTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#64748b; padding:16px;">Koi district registered nahi hai</td></tr>`;
+      } else {
+        districtTbody.innerHTML = districts.map(d => {
+          let statusBadge = '';
+          let actionElement = '';
+
+          if (d.status === 'Active') {
+            statusBadge = `<span class="st-active">Active</span>`;
+            actionElement = `<a href="admin.html?district=${encodeURIComponent(d.name)}" class="btn-login-admin">Login Admin &rarr;</a>`;
+          } else if (d.status === 'Under Verification') {
+            statusBadge = `<span class="st-verify">Under Verification</span>`;
+            actionElement = `<a href="admin.html?district=${encodeURIComponent(d.name)}" class="btn-login-admin">Login Admin &rarr;</a>`;
+          } else {
+            statusBadge = `<span class="st-open">Open for Allotment</span>`;
+            actionElement = `<a href="franchise-kit.html?district=${encodeURIComponent(d.name)}" class="btn-share-kit">Share Kit</a>`;
+          }
+
+          return `
+            <tr>
+              <td><b>${d.name}</b></td>
+              <td>${d.fee}<br><span style="color:#94a3b8; font-size:10px;">${d.sub || ''}</span></td>
+              <td>${d.share || '50% Platform Share'}</td>
+              <td>${statusBadge}</td>
+              <td style="text-align:right;">
+                ${actionElement}
+                <button class="btn-del" onclick="deleteDistrict('${d.id}', '${d.name}')" title="Delete District">🗑 Del</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    function toggleApproval(id, newStatus) {
+      let partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+      const partner = partners.find(p => p.id === id);
+      if (partner) {
+        partner.status = newStatus;
+        localStorage.setItem('rinzhu_beauticians', JSON.stringify(partners));
+        renderSuperAdmin();
+      }
+    }
+
+    // 🗑 Permanent Delete Beautician Function
+    function deletePartner(id, name) {
+      if (confirm(`Kya aap sach me Beautician Partner "${name}" ko permanently delete karna chahte hain?`)) {
+        let partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+        partners = partners.filter(p => p.id !== id);
+        localStorage.setItem('rinzhu_beauticians', JSON.stringify(partners));
+        renderSuperAdmin();
+        alert(`Partner "${name}" delete ho gaya!`);
+      }
+    }
+
+    // 🗑 Permanent Delete District Admin Function
+    function deleteDistrict(id, name) {
+      if (confirm(`Kya aap District Franchise Admin "${name}" ko permanently delete karna chahte hain?`)) {
+        let districts = JSON.parse(localStorage.getItem('rinzhu_districts')) || [];
+        districts = districts.filter(d => d.id !== id);
+        localStorage.setItem('rinzhu_districts', JSON.stringify(districts));
+        renderSuperAdmin();
+        alert(`District Admin "${name}" safaltapoorvak delete kar diya gaya!`);
+      }
+    }
+
+    function openDemoPartnerModal() {
+      document.getElementById('modal-partner').style.display = 'flex';
+    }
+
+    function openNewDistrictModal() {
+      document.getElementById('modal-district').style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function saveDemoPartner() {
+      const name = document.getElementById('m-name').value.trim();
+      const phone = document.getElementById('m-phone').value.trim();
+      const district = document.getElementById('m-district').value.trim() || 'Aurangabad';
+
+      if (!name || phone.length < 10) {
+        alert("Naam aur 10-digit phone number bharein!");
+        return;
+      }
+
+      const partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+      partners.unshift({
+        id: "B-" + Math.floor(100 + Math.random() * 900),
+        name: name,
+        phone: phone,
+        area: district,
+        status: "Rejected"
+      });
+
+      localStorage.setItem('rinzhu_beauticians', JSON.stringify(partners));
+      document.getElementById('m-name').value = '';
+      document.getElementById('m-phone').value = '';
+      closeModal('modal-partner');
+      renderSuperAdmin();
+    }
+
+    function saveNewDistrict() {
+      const name = document.getElementById('d-name').value.trim();
+      const fee = document.getElementById('d-fee').value.trim() || '₹50,000';
+      const status = document.getElementById('d-status').value;
+      if (!name) {
+        alert("District ka naam bharein!");
+        return;
+      }
+
+      let subText = '(Paid)';
+      if (status === 'Under Verification') subText = '(Reserved)';
+      if (status === 'Open for Allotment') subText = '(Open)';
+
+      const districts = JSON.parse(localStorage.getItem('rinzhu_districts')) || [];
+      districts.push({
+        id: "D-" + Math.floor(100 + Math.random() * 900),
+        name: name,
+        fee: fee,
+        sub: subText,
+        share: "50% Platform Share",
+        status: status
+      });
+
+      localStorage.setItem('rinzhu_districts', JSON.stringify(districts));
+      document.getElementById('d-name').value = '';
+      closeModal('modal-district');
+      renderSuperAdmin();
+      alert(`New District Admin node "${name}" create ho gaya!`);
+    }
+
+    seedDataIfEmpty();
+    renderSuperAdmin();
+    setInterval(renderSuperAdmin, 4000);
+  </script>
+</body>
+</html>
