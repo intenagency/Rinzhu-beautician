@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rinzhu Beauty Franchise Master Kit</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background: #334155; padding: 16px 8px 60px; color: #1e293b; }
+
+    .top-bar {
+      max-width: 820px;
+      margin: 0 auto 12px;
+      background: #0f172a;
+      padding: 10px 14px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .lang-toggle {
+      background: #334155;
+      color: #fff;
+      border: 1px solid #475569;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .lang-toggle.active { background: #be185d; border-color: #be185d; }
+    .btn-pdf {
+      background: #16a34a;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .doc-page {
+      background: #ffffff;
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto 16px;
+      padding: 24px 28px;
+      border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+
+    .page-break { page-break-before: always; }
+
+    .brand-header {
+      border-bottom: 2.5px solid #be185d;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-title { font-size: 18px; font-weight: 800; color: #be185d; }
+    .badge {
+      background: #fdf2f8;
+      color: #be185d;
+      border: 1px solid #fbcfe8;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .doc-heading {
+      font-size: 15px;
+      font-weight: 800;
+      color: #831843;
+      text-align: center;
+      margin: 8px 0 12px;
+      text-transform: uppercase;
+    }
+    .sec-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #be185d;
+      border-left: 3.5px solid #be185d;
+      padding-left: 6px;
+      margin: 12px 0 6px;
+      text-transform: uppercase;
+    }
+    .box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 11.5px;
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+    table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 11.5px; }
+    th { background: #be185d; color: #fff; padding: 6px 8px; text-align: left; }
+    td { padding: 6px 8px; border-bottom: 1px solid #e2e8f0; }
+    tr:nth-child(even) td { background: #fdf2f8; }
+
+    .cert-box {
+      border: 3px double #be185d;
+      padding: 24px 18px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .sig-row { display: flex; justify-content: space-between; margin-top: 36px; text-align: center; font-size: 11.5px; }
+    .sig-line { border-top: 1px solid #475569; width: 140px; margin: 0 auto 4px; }
+
+    footer {
+      background: #0b1120;
+      color: #64748b;
+      text-align: center;
+      padding: 28px 16px;
+      margin-top: 40px;
+      font-size: 11.5px;
+      border-top: 1px solid #1e293b;
+      line-height: 1.6;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .top-bar, footer { display: none; }
+      .doc-page { box-shadow: none; max-width: 100%; margin: 0; padding: 18px; }
+      .page-break { page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Controls -->
+  <div class="top-bar">
+    <div style="display:flex; gap:6px;">
+      <button class="lang-toggle active" id="btn-hi" onclick="setLang('hi')">हिंदी (Hindi)</button>
+      <button class="lang-toggle" id="btn-en" onclick="setLang('en')">English</button>
+    </div>
+    <button class="btn-pdf" onclick="window.print()">📥 Save as PDF</button>
+  </div>
+
+  <div id="content-area"></div>
+
+  <!-- OFFICIAL INTEN AGENCY CORPORATE FOOTER -->
+  <footer>
+    <p style="color:#f8fafc; font-weight:800; font-size:13px; letter-spacing:0.5px; margin-bottom:4px;">
+      RINZHU BEAUTY &amp; WELLNESS
+    </p>
+    <p style="margin-bottom:4px; color:#94a3b8; font-size:12px;">
+      Owned and Managed by <b style="color:#cbd5e1;">Inten Agency</b>
+    </p>
+    <p style="color:#64748b; font-size:11px; margin-bottom:8px;">
+      Official Beneficiary: <b style="color:#cbd5e1;">INTEN AGENCY</b>
+    </p>
+    <div style="font-size:10.5px; color:#475569;">
+      <span>&copy; 2026 Inten Agency. All Rights Reserved.</span>
+    </div>
+  </footer>
+
+  <script>
+    const data = {
+      hi: {
+        p1Tag: "कानूनी अनुबंध (MOU)",
+        p1Title: "जिला फ्रेंचाइजी पार्टनरशिप अनुबंध (Agreement)",
+        p1Meta: "यह समझौता <b>Rinzhu Beauty Network</b> (प्रथम पक्ष - मास्टर कंपनी) एवं <b>फ्रेंचाइजी होल्डर</b> (द्वितीय पक्ष - डिस्ट्रिक्ट हेड) के मध्य आपसी सहमति से निष्पादित किया गया है:<br><br><b>Franchise Partner:</b> ___________________________ &nbsp;&nbsp;|&nbsp;&nbsp; <b>Mobile:</b> ___________________________<br><b>District:</b> ___________________________ &nbsp;&nbsp;|&nbsp;&nbsp; <b>Date:</b> ____ / ____ / 202___",
+        p1Sec1: "1. एक्सक्लूसिव जिला अधिकार (District Monopoly)",
+        p1C1: "मास्टर कंपनी द्वारा द्वितीय पक्ष को उनके आवंटित जिले में 100% एक्सक्लूसिव फ्रेंचाइजी अधिकार प्रदान किए जाते हैं। इस जिले में कंपनी किसी अन्य व्यक्ति या संस्था को दूसरा एडमिन पोर्टल जारी नहीं करेगी।",
+        p1Sec2: "2. फ्रेंचाइजी अथॉरिटी फीस (Franchise Fee)",
+        p1C2: "द्वितीय पक्ष द्वारा एकमुश्त (One-time non-refundable) फ्रेंचाइजी लाइसेंस फीस के रूप में <b>₹50,000 (पचास हजार रुपये)</b> का भुगतान मास्टर कंपनी को किया गया है। इसमें सॉफ्टवेयर एक्सेस, डिस्ट्रिक्ट एडमिन पैनल और कानूनी अधिकार शामिल हैं।",
+        p1Sec3: "3. 50-50 कमीशन व रेवेन्यू शेयरिंग नियम",
+        p1C3: "जिले के अंतर्गत पूरी होने वाली प्रत्येक सैलून बुकिंग के कुल सर्विस बिल में से:<br>• <b>80% सर्विस वैल्यू + 100% यात्रा खर्च:</b> सीधे ब्यूटीशियन (सर्विस पार्टनर) को प्राप्त होगा।<br>• <b>20% प्लेटफॉर्म फीस:</b> इस 20% प्लेटफॉर्म चार्ज का <b>50% हिस्सा कंपनी को और 50% सीधा हिस्सा जिला फ्रेंचाइजी पार्टनर</b> के खाते में क्रेडिट किया जाएगा।",
+        p1Sec4: "4. संचालन अधिकार एवं दायित्व",
+        p1C4: "फ्रेंचाइजी हेड अपने निजी पोर्टल (admin.html) से ब्यूटीशियन्स के दस्तावेज सत्यापित करेगा, ऑर्डर्स की निगरानी करेगा और ब्रांड गुणवत्ता बनाए रखेगा।",
+
+        p2Tag: "प्राधिकार प्रमाण पत्र",
+        p2Header: "CERTIFICATE OF APPOINTMENT",
+        p2Title: "जिला फ्रेंचाइजी प्राधिकार प्रमाण पत्र",
+        p2Body: "प्रमाणित किया जाता है कि<br><span style='font-size:16px; font-weight:800; text-decoration:underline;'>श्री / सुश्री _____________________________________________</span><br>को आधिकारिक रूप से Rinzhu Beauty & Wellness के अंतर्गत<br><b style='font-size:14px; color:#be185d;'>DISTRICT FRANCHISE BUSINESS HEAD</b><br>के रूप में निम्नलिखित जिले के लिए नियुक्त व अधिकृत किया जाता है:<br><span style='font-size:15px; font-weight:800;'>[ ____________________________________ जिला ]</span>",
+        p2Points: "✓ जिले में डोरस्टेप सैलून पार्टनर्स की भर्ती एवं सत्यापन का पूर्ण अधिकार।<br>✓ जिले के समस्त प्लेटफॉर्म रेवेन्यू पर 50% रॉयल्टी शेयर प्राप्त करने का अधिकार।<br>✓ क्षेत्रीय स्तर पर ब्रांड का आधिकारिक प्रतिनिधित्व एवं प्रचार संचालन का अधिकार।",
+
+        p3Tag: "पार्टनर सुरक्षा बॉन्ड",
+        p3Title: "ब्यूटीशियन पार्टनर सेवा अनुबंध एवं दायित्व पत्र",
+        p3Notice: "<b>नोट:</b> यह कानूनी घोषणा हर ब्यूटीशियन से रजिस्ट्रेशन के समय ऑनलाइन स्वीकार कराई जाती है ताकि ग्राहक के घर स्किन रिएक्शन, कॉस्मेटिक नुकसान या चोरी की स्थिति में <b>कंपनी और फ्रेंचाइजी हेड पर कोई कानूनी या वित्तीय आंच न आए।</b>",
+        p3Sec1: "1. स्वतंत्र सेवा प्रदाता (Independent Contractor)",
+        p3C1: "ब्यूटीशियन स्वीकार करती है कि वह एक स्वतंत्र फ्रीलांस पार्टनर है तथा कंपनी या फ्रेंचाइजी की स्थायी कर्मचारी नहीं है। वह अपनी मर्जी व उपलब्धता के अनुसार ऑर्डर्स स्वीकार करने के लिए स्वतंत्र है।",
+        p3Sec2: "2. कॉस्मेटिक गुणवत्ता एवं स्किन एलर्जी दायित्व",
+        p3C2: "ब्यूटीशियन अनिवार्य रूप से एक्सपायरी-मुक्त, सीलबंद एवं उच्च गुणवत्ता वाले कॉस्मेटिक प्रोडक्ट्स का ही उपयोग करेगी। फेशियल या ब्लीच से पूर्व पैच-टेस्ट अनिवार्य है। यदि ग्राहक को स्किन एलर्जी, जलन या रिएक्शन होता है, तो <b>उसकी संपूर्ण कानूनी व आर्थिक जिम्मेदारी ब्यूटीशियन की होगी।</b> कंपनी या फ्रेंचाइजी हेड किसी भी मुआवजे के लिए उत्तरदायी नहीं होंगे।",
+        p3Sec3: "3. पारिश्रमिक व भुगतान नियम",
+        p3C3: "ब्यूटीशियन को प्रत्येक ऑर्डर पर कुल सर्विस मूल्य का <b>80%</b> एवं आवागमन का <b>100% यात्रा खर्च (₹3/किमी राउंड ट्रिप)</b> सीधे प्राप्त होता है। 20% प्लेटफॉर्म कमीशन कंपनी द्वारा काटा जाता है।",
+
+        p4Tag: "ग्रोथ गाइडबुक",
+        p4Title: "मार्केटिंग एवं ब्यूटीशियन भर्ती एसओपी (SOP)",
+        p4Sec1: "चरण 1: प्रथम 7 दिनों में 15 ब्यूटीशियन्स जोड़ने की रणनीति",
+        p4C1: "• <b>स्थानीय पार्लर संपर्क:</b> जिले के पार्लरों में काम करने वाली युवतियों या फ्रीलांस काम करने वाली महिलाओं से सीधा संपर्क करें।<br>• <b>80% कमाई मॉडल:</b> उन्हें समझाएं कि पार्लर केवल ₹8,000–₹10,000 देता है, जबकि Rinzhu Beauty पर वे रोजाना 2–3 घंटे में <b>80% पेआउट और पेट्रोल भत्ते</b> के साथ ₹25,000 से ₹35,000 महीना कमा सकती हैं।<br>• <b>पोर्टल रजिस्ट्रेशन:</b> उनका पहचान पत्र एवं फोटो beautician.html पर अपलोड कराएं और अपने एडमिन पोर्टल से तुरंत सक्रिय करें।",
+        p4Sec2: "चरण 2: कस्टमर ऑर्डर्स बढ़ाने की स्थानीय प्रचार योजना",
+        p4Table: "<tr><th>माध्यम</th><th>रणनीति</th></tr><tr><td><b>WhatsApp</b></td><td>स्थानीय महिला ग्रुप्स में सर्विस रेट्स और डिस्काउंट ऑफर्स शेयर करें।</td></tr><tr><td><b>Pamphlets</b></td><td>सुबह के समाचार पत्रों के साथ रंगीन पैम्फलेट्स वितरित कराएं।</td></tr>",
+        p4AdTitle: "तैयार विज्ञापन संदेश (Social Media Ad Script)",
+        p4Ad: "<i>'🌸 अब पार्लर जाने और लाइन में लगने का झंझट खत्म! Rinzhu Beauty के साथ अपने घर पर पाएं सुरक्षित, स्वच्छ एवं प्रोफेशनल सैलून सर्विसेज - वैक्सिंग, फेशियल, मेनी-पेडी और क्लीन-अप। 100% सत्यापित महिला ब्यूटीशियन। अभी बुक करें: [ऐप लिंक] या कॉल करें: [जिला हेल्पलाइन]।'</i>",
+        p4ChecklistTitle: "फ्रेंचाइजी हेड की दैनिक कार्य-सूची (Daily Checklist)",
+        p4Checklist: "✓ सुबह 9:00 बजे admin.html पोर्टल खोलकर एक्टिव ब्यूटीशियन्स की उपस्थिति जांचें।<br>✓ जिले में आने वाले नए कस्टमर ऑर्डर्स और उनके असाइनमेंट की स्थिति देखें।<br>✓ पेंडिंग रजिस्ट्रेशन वाले ब्यूटीशियन्स के दस्तावेज जांचकर उनका अकाउंट अप्रूव करें।<br>✓ शाम को अपना 50% प्रॉफिट वॉलेट देखकर दैनिक आय का मिलान करें।"
+      },
+      en: {
+        p1Tag: "Legal Agreement (MOU)",
+        p1Title: "District Franchise Partnership Agreement",
+        p1Meta: "This Agreement is mutually executed between <b>Rinzhu Beauty Network</b> (First Party - Master Platform) and the <b>Franchise Holder</b> (Second Party - District Head):<br><br><b>Franchise Partner:</b> ___________________________ &nbsp;&nbsp;|&nbsp;&nbsp; <b>Mobile:</b> ___________________________<br><b>District:</b> ___________________________ &nbsp;&nbsp;|&nbsp;&nbsp; <b>Date:</b> ____ / ____ / 202___",
+        p1Sec1: "1. Exclusive Territorial Monopoly",
+        p1C1: "The Master Platform grants 100% exclusive administrative and territorial rights to the Second Party for the designated administrative district. No second franchisee panel shall be granted in this area.",
+        p1Sec2: "2. One-Time Franchise Authorization Fee",
+        p1C2: "The Second Party has paid a non-refundable franchise authorization fee of <b>INR 50,000 (Fifty Thousand Rupees)</b> to the Master Platform covering setup, proprietary portal access, and territorial monopoly.",
+        p1Sec3: "3. 50-50 Platform Profit Sharing",
+        p1C3: "On each completed home salon service across the district:<br>• <b>80% Service Bill + 100% Travel Allowance:</b> Disbursed directly to the Beautician.<br>• <b>20% Platform Fee:</b> Distributed 50% to Master Company and <b>50% directly to the District Franchisee</b> as recurring profit.",
+        p1Sec4: "4. District Admin Governance",
+        p1C4: "The Franchise Head shall supervise verified partners on admin.html, track daily dispatch, and maintain local service quality.",
+
+        p2Tag: "Official Certificate",
+        p2Header: "CERTIFICATE OF APPOINTMENT",
+        p2Title: "District Franchise Authorization Certificate",
+        p2Body: "This is to officially certify that<br><span style='font-size:16px; font-weight:800; text-decoration:underline;'>Mr. / Ms. _____________________________________________</span><br>has been designated as the authorized exclusive<br><b style='font-size:14px; color:#be185d;'>DISTRICT FRANCHISE BUSINESS HEAD</b><br>for the territory of:<br><span style='font-size:15px; font-weight:800;'>[ ____________________________________ DISTRICT ]</span>",
+        p2Points: "✓ Full administrative authority to recruit and onboard home salon beauticians.<br>✓ Statutory right to 50% platform profit royalty across the designated district.<br>✓ Authorized regional brand representation and local management.",
+
+        p3Tag: "Partner Safety Bond",
+        p3Title: "Beautician Partner Agreement & Liability Waiver",
+        p3Notice: "<b>Notice:</b> Mandatorily accepted by beauticians during registration to ensure <b>complete legal immunity for the Company and the Franchise Head</b> against cosmetic or customer liability.",
+        p3Sec1: "1. Independent Service Provider",
+        p3C1: "The Beautician operates as an independent contractor and not a salaried employee. She retains full discretion to accept or decline dispatched bookings.",
+        p3Sec2: "2. Cosmetic Quality & Allergy Disclaimer",
+        p3C2: "The Beautician undertakes to use genuine, unexpired cosmetics and perform skin patch tests. If skin reactions occur, <b>sole liability rests with the Beautician.</b> Neither Rinzhu Beauty nor the Franchise Head bears liability.",
+        p3Sec3: "3. Partner Remuneration",
+        p3C3: "The Beautician receives <b>80% of service bill</b> plus <b>100% travel allowance (INR 3/km round trip)</b>. The platform retains a 20% commission fee.",
+
+        p4Tag: "Growth Playbook",
+        p4Title: "Marketing & Partner Recruitment SOP",
+        p4Sec1: "Phase 1: Onboard 15 Beauticians in 7 Days",
+        p4C1: "• <b>Direct Parlor Outreach:</b> Approach local parlor staff and freelancers across your district.<br>• <b>80% High Payout Pitch:</b> Highlight that parlors pay INR 8,000–10,000, while Rinzhu Beauty enables earnings of <b>INR 25,000–35,000 monthly</b>.<br>• <b>Verification Upload:</b> Upload ID and profile photo on beautician.html and activate via admin panel.",
+        p4Sec2: "Phase 2: Customer Acquisition Channels",
+        p4Table: "<tr><th>Medium</th><th>Strategy</th></tr><tr><td><b>WhatsApp</b></td><td>Distribute rate cards and promotional offers across local female groups.</td></tr><tr><td><b>Pamphlets</b></td><td>Distribute colored flyers with morning newspaper deliveries.</td></tr>",
+        p4AdTitle: "Ready-to-Deploy Promotion Script",
+        p4Ad: "<i>'🌸 Skip the parlor queues! Get certified doorstep salon services with 100% verified female beauticians right at home. Book now via [App Link] or call [District Helpline].'</i>",
+        p4ChecklistTitle: "District Admin Daily Checklist",
+        p4Checklist: "✓ Log in to admin.html at 9:00 AM and verify active beautician availability.<br>✓ Monitor incoming customer bookings and track dispatch completions.<br>✓ Verify uploaded ID proofs for new beauticians and toggle status to Active.<br>✓ Audit the 50% Franchise Profit Pool every evening."
+      }
+    };
+
+    function render(lang) {
+      const d = data[lang];
+      document.getElementById('content-area').innerHTML = `
+        <!-- Page 1 -->
+        <div class="doc-page">
+          <div class="brand-header">
+            <div><div class="brand-title">RINZHU BEAUTY &amp; WELLNESS</div><div style="font-size:11px; color:#64748b;">Document 01</div></div>
+            <div class="badge">${d.p1Tag}</div>
+          </div>
+          <div class="doc-heading">${d.p1Title}</div>
+          <div class="box">${d.p1Meta}</div>
+          <div class="sec-title">${d.p1Sec1}</div><div class="box">${d.p1C1}</div>
+          <div class="sec-title">${d.p1Sec2}</div><div class="box">${d.p1C2}</div>
+          <div class="sec-title">${d.p1Sec3}</div><div class="box">${d.p1C3}</div>
+          <div class="sec-title">${d.p1Sec4}</div><div class="box">${d.p1C4}</div>
+          <div class="sig-row">
+            <div><div class="sig-line"></div><b>First Party (Company)</b></div>
+            <div><div class="sig-line"></div><b>Second Party (District Head)</b></div>
+          </div>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="doc-page page-break">
+          <div class="brand-header">
+            <div><div class="brand-title">RINZHU BEAUTY &amp; WELLNESS</div><div style="font-size:11px; color:#64748b;">Document 02</div></div>
+            <div class="badge">${d.p2Tag}</div>
+          </div>
+          <div class="cert-box">
+            <div style="font-size:11px; font-weight:700; color:#be185d;">${d.p2Header}</div>
+            <div style="font-size:17px; font-weight:800; color:#831843; margin:4px 0 10px;">${d.p2Title}</div>
+            <div style="font-size:12px; line-height:1.6; margin:16px 0;">${d.p2Body}</div>
+            <div class="box" style="text-align:left; background:#fdf2f8; border-color:#fbcfe8; margin:14px 0;">${d.p2Points}</div>
+            <div class="sig-row" style="margin-top:40px;">
+              <div><div class="sig-line"></div><b>Date of Issue</b></div>
+              <div style="width:50px; height:50px; border:2px dashed #be185d; border-radius:50%; line-height:50px; font-size:9px; color:#be185d; font-weight:bold; margin:0 auto;">SEAL</div>
+              <div><div class="sig-line"></div><b>Managing Director</b></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Page 3 -->
+        <div class="doc-page page-break">
+          <div class="brand-header">
+            <div><div class="brand-title">RINZHU BEAUTY &amp; WELLNESS</div><div style="font-size:11px; color:#64748b;">Document 03</div></div>
+            <div class="badge">${d.p3Tag}</div>
+          </div>
+          <div class="doc-heading">${d.p3Title}</div>
+          <div class="box" style="background:#fdf2f8; border-color:#fbcfe8;">${d.p3Notice}</div>
+          <div class="sec-title">${d.p3Sec1}</div><div class="box">${d.p3C1}</div>
+          <div class="sec-title">${d.p3Sec2}</div><div class="box">${d.p3C2}</div>
+          <div class="sec-title">${d.p3Sec3}</div><div class="box">${d.p3C3}</div>
+          <div class="sig-row">
+            <div><div class="sig-line"></div><b>Beautician Verified</b></div>
+            <div><div class="sig-line"></div><b>District Head Stamp</b></div>
+          </div>
+        </div>
+
+        <!-- Page 4 -->
+        <div class="doc-page page-break">
+          <div class="brand-header">
+            <div><div class="brand-title">RINZHU BEAUTY &amp; WELLNESS</div><div style="font-size:11px; color:#64748b;">Document 04</div></div>
+            <div class="badge">${d.p4Tag}</div>
+          </div>
+          <div class="doc-heading">${d.p4Title}</div>
+          <div class="sec-title">${d.p4Sec1}</div><div class="box">${d.p4C1}</div>
+          <div class="sec-title">${d.p4Sec2}</div>
+          <table>
+            ${d.p4Table}
+          </table>
+          <div class="sec-title">${d.p4AdTitle}</div>
+          <div class="box" style="background:#fdf2f8; border-color:#fbcfe8;">${d.p4Ad}</div>
+          <div class="sec-title">${d.p4ChecklistTitle}</div>
+          <div class="box">${d.p4Checklist}</div>
+        </div>
+      `;
+    }
+
+    function setLang(lang) {
+      document.getElementById('btn-hi').classList.toggle('active', lang === 'hi');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      render(lang);
+    }
+
+    render('hi');
+  </script>
+</body>
+</html>
