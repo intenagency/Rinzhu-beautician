@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rinzhu Beauty - District Franchise Operations & KYC Hub</title>
+  
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background:#0f172a; color:#f8fafc; padding-bottom:80px; }
+
+    header {
+      background:#1e293b;
+      padding:14px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid #334155;
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+    .brand { font-size:16px; font-weight:800; color:#38bdf8; display:flex; align-items:center; gap:6px; }
+    
+    .container { max-width:650px; margin:0 auto; padding:14px; }
+
+    /* Login & Settings Modal/Box Styles */
+    .auth-overlay { position:fixed; inset:0; background:#0f172a; z-index:99999; display:flex; justify-content:center; align-items:center; padding:20px; }
+    .auth-card { background:#1e293b; border:1px solid #334155; width:100%; max-width:400px; padding:24px; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); }
+    .auth-card h2 { font-size:18px; color:#38bdf8; margin-bottom:16px; text-align:center; }
+    .form-group { margin-bottom:12px; }
+    .form-group label { display:block; font-size:11px; color:#94a3b8; margin-bottom:4px; text-transform:uppercase; font-weight:600; }
+    .form-control { width:100%; background:#0f172a; border:1px solid #334155; padding:10px; color:#f8fafc; border-radius:6px; font-size:13px; }
+    .btn-primary { width:100%; background:#0284c7; color:white; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:10px; }
+    .btn-secondary { background:#475569; color:white; border:none; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer; display:inline-flex; align-items:center; gap:4px; text-decoration:none; }
+
+    .grid-stats { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+    .stat-card { background:#1e293b; border:1px solid #334155; padding:12px; border-radius:10px; }
+    .stat-card.highlight { background:linear-gradient(135deg, #0284c7, #0369a1); border:none; }
+    .stat-label { font-size:11px; color:#94a3b8; text-transform:uppercase; font-weight:600; }
+    .stat-card.highlight .stat-label { color:#bae6fd; }
+    .stat-val { font-size:20px; font-weight:800; color:#f8fafc; margin-top:4px; }
+
+    .tab-bar { display:flex; background:#1e293b; border-radius:8px; padding:4px; margin-bottom:14px; border:1px solid #334155; }
+    .tab-btn { flex:1; background:transparent; border:none; color:#94a3b8; padding:9px; font-size:12px; font-weight:700; border-radius:6px; cursor:pointer; }
+    .tab-btn.active { background:#0284c7; color:#ffffff; }
+
+    /* Sub-filters for KYC */
+    .sub-filter-bar { display:flex; gap:6px; overflow-x:auto; margin-bottom:12px; padding-bottom:4px; scrollbar-width:none; }
+    .sub-filter-bar::-webkit-scrollbar { display:none; }
+    .filter-chip { background:#1e293b; color:#94a3b8; border:1px solid #334155; padding:5px 12px; border-radius:15px; font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; }
+    .filter-chip.active { background:#ec4899; color:#fff; border-color:#ec4899; }
+
+    .search-box { width:100%; background:#1e293b; border:1px solid #334155; padding:9px 12px; border-radius:8px; color:#f8fafc; font-size:12px; margin-bottom:12px; }
+
+    .item-card { background:#1e293b; border:1px solid #334155; border-radius:10px; padding:14px; margin-bottom:12px; }
+    .item-top { display:flex; justify-content:space-between; border-bottom:1px solid #334155; padding-bottom:6px; margin-bottom:8px; }
+    .status-tag { font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; }
+    .tag-pending { background:#854d0e; color:#fef08a; }
+    .tag-approved { background:#166534; color:#bbf7d0; }
+    .tag-rejected { background:#991b1b; color:#fee2e2; }
+
+    .partner-mini-profile {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:8px;
+    }
+    .partner-thumb {
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid #ec4899;
+      background:#0f172a;
+      cursor:pointer;
+    }
+
+    .kyc-box { background:#0f172a; border:1px solid #334155; border-radius:6px; padding:10px; margin:8px 0; font-size:11.5px; line-height:1.5; }
+    .doc-preview-link { color:#38bdf8; text-decoration:underline; cursor:pointer; font-weight:bold; margin-right:8px; }
+
+    .btn-approve { background:#16a34a; color:white; border:none; padding:7px 14px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer; }
+    .btn-reject { background:#dc2626; color:white; border:none; padding:7px 14px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer; margin-left:6px; }
+
+    .img-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; padding:16px; }
+    .img-modal img { max-width:90%; max-height:80vh; border-radius:8px; border:2px solid #38bdf8; }
+
+    /* Floating AI Support for Admin */
+    .floating-admin-ai {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #ec4899, #be185d);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 4px 16px rgba(236, 72, 153, 0.45);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #f472b6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-overlay" class="auth-overlay">
+    <div class="auth-card">
+      <h2>🔐 District Admin Login</h2>
+      <div class="form-group">
+        <label>Admin User ID</label>
+        <input type="text" id="login-user" class="form-control" placeholder="Enter admin id (e.g. admin)">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" class="form-control" placeholder="Enter password">
+      </div>
+      <button class="btn-primary" onclick="handleLogin()">Login to Dashboard</button>
+      <div style="font-size:10px; color:#64748b; text-align:center; margin-top:12px;">Default ID: <b>admin</b> | Pass: <b>rinzhu123</b></div>
+    </div>
+  </div>
+
+  <!-- PASSWORD CHANGE MODAL -->
+  <div id="settings-modal" class="auth-overlay" style="display:none;">
+    <div class="auth-card">
+      <h2>⚙️ Change Admin Password</h2>
+      <div class="form-group">
+        <label>New Admin ID</label>
+        <input type="text" id="new-user-id" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>New Password</label>
+        <input type="password" id="new-pass-id" class="form-control">
+      </div>
+      <button class="btn-primary" onclick="saveNewCredentials()">Update &amp; Notify SuperAdmin</button>
+      <button class="btn-secondary" style="width:100%; margin-top:6px;" onclick="document.getElementById('settings-modal').style.display='none'">Cancel</button>
+    </div>
+  </div>
+
+  <header>
+    <div>
+      <div class="brand"><i class="fa-solid fa-landmark"></i> District Admin Hub</div>
+      <div style="font-size:10px; color:#94a3b8;">Rinzhu Beauty | Inten Agency</div>
+    </div>
+    <div style="display:flex; gap:6px; align-items:center;">
+      <a href="help.html" class="btn-secondary" style="background:#0284c7;" title="AI Legal & Operations Assistant">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> AI Help
+      </a>
+      <button class="btn-secondary" onclick="openSettings()"><i class="fa-solid fa-gear"></i></button>
+      <button class="btn-secondary" style="background:#b91c1c;" onclick="handleLogout()"><i class="fa-solid fa-lock"></i></button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="grid-stats">
+      <div class="stat-card highlight">
+        <div class="stat-label">Franchise Profit (10%)</div>
+        <div class="stat-val" id="franchise-earning">₹0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Verified Beauticians</div>
+        <div class="stat-val" id="active-beauticians-count">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Booking Volume</div>
+        <div class="stat-val" id="total-volume">₹0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Pending KYC</div>
+        <div class="stat-val" id="pending-kyc-count">0</div>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" id="btn-tab-partners" onclick="setTab('partners')">👩 Beautician KYC Hub (<span id="count-partners">0</span>)</button>
+      <button class="tab-btn" id="btn-tab-orders" onclick="setTab('orders')">📦 Orders Stream (<span id="count-orders">0</span>)</button>
+    </div>
+
+    <div id="view-partners">
+      <input type="text" id="partner-search-input" class="search-box" placeholder="🔍 Partner Naam, Phone ya Area se search karein..." oninput="loadPartnersList()">
+
+      <div class="sub-filter-bar">
+        <div class="filter-chip active" id="chip-all" onclick="setPartnerFilter('all', this)">All Partners</div>
+        <div class="filter-chip" id="chip-pending" onclick="setPartnerFilter('Pending', this)">⏳ Pending KYC</div>
+        <div class="filter-chip" id="chip-approved" onclick="setPartnerFilter('Approved', this)">✔ Approved</div>
+        <div class="filter-chip" id="chip-suspended" onclick="setPartnerFilter('Suspended', this)">⛔ Suspended</div>
+      </div>
+
+      <div id="partners-list"></div>
+    </div>
+
+    <div id="view-orders" style="display:none;">
+      <div style="font-size:13px; font-weight:700; color:#cbd5e1; margin-bottom:10px;">
+        District Customer Bookings &amp; 10% Share Tracker
+      </div>
+      <div id="orders-list"></div>
+    </div>
+
+  </div>
+
+  <a href="help.html" class="floating-admin-ai">
+    <i class="fa-solid fa-robot"></i> AI Admin Assistant
+  </a>
+
+  <div id="lightbox-modal" class="img-modal" onclick="this.style.display='none'">
+    <img id="lightbox-img" alt="Document Preview" />
+  </div>
+
+  <script>
+    const SUPERADMIN_WHATSAPP = "919876543210"; 
+    let activeTab = 'partners';
+    let currentPartnerFilter = 'all';
+
+    window.onload = function() {
+      const isAuth = sessionStorage.getItem('rinzhu_admin_auth');
+      if (isAuth === 'true') {
+        document.getElementById('login-overlay').style.display = 'none';
+        loadAdminDashboard();
+      }
+    };
+
+    function handleLogin() {
+      const uInput = document.getElementById('login-user').value.trim();
+      const pInput = document.getElementById('login-pass').value.trim();
+
+      const savedUser = localStorage.getItem('rinzhu_admin_user') || 'admin';
+      const savedPass = localStorage.getItem('rinzhu_admin_pass') || 'rinzhu123';
+
+      if (uInput === savedUser && pInput === savedPass) {
+        sessionStorage.setItem('rinzhu_admin_auth', 'true');
+        document.getElementById('login-overlay').style.display = 'none';
+        
+        notifySuperAdmin(`🔐 *District Admin Logged In*\nID: ${uInput}\nPassword: ${pInput}`);
+        loadAdminDashboard();
+      } else {
+        alert("Galat User ID ya Password hai!");
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('rinzhu_admin_auth');
+      document.getElementById('login-overlay').style.display = 'flex';
+    }
+
+    function openSettings() {
+      document.getElementById('new-user-id').value = localStorage.getItem('rinzhu_admin_user') || 'admin';
+      document.getElementById('new-pass-id').value = localStorage.getItem('rinzhu_admin_pass') || 'rinzhu123';
+      document.getElementById('settings-modal').style.display = 'flex';
+    }
+
+    function saveNewCredentials() {
+      const newU = document.getElementById('new-user-id').value.trim();
+      const newP = document.getElementById('new-pass-id').value.trim();
+
+      if (!newU || !newP) {
+        alert("User ID aur Password khali nahi ho sakta!");
+        return;
+      }
+
+      localStorage.setItem('rinzhu_admin_user', newU);
+      localStorage.setItem('rinzhu_admin_pass', newP);
+      document.getElementById('settings-modal').style.display = 'none';
+      alert("Credentials safalpurvak update kar diye gaye hain!");
+
+      notifySuperAdmin(`🛠️ *Admin Credentials Updated*\nNew ID: ${newU}\nNew Password: ${newP}`);
+    }
+
+    function notifySuperAdmin(msg) {
+      const url = `https://wa.me/${SUPERADMIN_WHATSAPP}?text=` + encodeURIComponent(msg);
+      window.open(url, '_blank');
+    }
+
+    function setTab(tab) {
+      activeTab = tab;
+      document.getElementById('view-partners').style.display = (tab === 'partners') ? 'block' : 'none';
+      document.getElementById('view-orders').style.display = (tab === 'orders') ? 'block' : 'none';
+      document.getElementById('btn-tab-partners').classList.toggle('active', tab === 'partners');
+      document.getElementById('btn-tab-orders').classList.toggle('active', tab === 'orders');
+      loadAdminDashboard();
+    }
+
+    function setPartnerFilter(filterVal, el) {
+      currentPartnerFilter = filterVal;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      loadPartnersList();
+    }
+
+    function showDocModal(base64Data) {
+      if (!base64Data) {
+        alert("Photo upload nahi ki gayi thi.");
+        return;
+      }
+      document.getElementById('lightbox-img').src = base64Data;
+      document.getElementById('lightbox-modal').style.display = 'flex';
+    }
+
+    function loadAdminDashboard() {
+      const orders = JSON.parse(localStorage.getItem('rinzhu_orders')) || [];
+      const partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+
+      let volume = 0;
+      let profit10 = 0;
+      orders.forEach(o => {
+        const val = Number(o.serviceBill) || 0;
+        volume += val;
+        if (o.status === 'Completed') {
+          profit10 += Math.round(val * 0.10);
+        }
+      });
+
+      const approvedPartners = partners.filter(p => p.status === 'Approved').length;
+      const pendingPartners = partners.filter(p => p.status === 'Pending').length;
+
+      document.getElementById('total-volume').innerText = "₹" + volume;
+      document.getElementById('franchise-earning').innerText = "₹" + profit10;
+      document.getElementById('active-beauticians-count').innerText = approvedPartners;
+      document.getElementById('pending-kyc-count').innerText = pendingPartners;
+      document.getElementById('count-partners').innerText = partners.length;
+      document.getElementById('count-orders').innerText = orders.length;
+
+      loadPartnersList();
+      loadOrdersList();
+    }
+
+    function loadPartnersList() {
+      const partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+      const searchQuery = document.getElementById('partner-search-input').value.toLowerCase();
+      const partnersContainer = document.getElementById('partners-list');
+
+      let filtered = partners;
+      if (currentPartnerFilter !== 'all') {
+        filtered = filtered.filter(p => p.status === currentPartnerFilter);
+      }
+
+      if (searchQuery) {
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(searchQuery) || 
+          p.phone.includes(searchQuery) || 
+          (p.area && p.area.toLowerCase().includes(searchQuery))
+        );
+      }
+
+      if (filtered.length === 0) {
+        partnersContainer.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; background:#1e293b; border-radius:10px;">📭 Koi partner nahi mila.</div>`;
+        return;
+      }
+
+      partnersContainer.innerHTML = filtered.slice().reverse().map(p => {
+        const isApp = p.status === 'Approved';
+        const isSusp = p.status === 'Suspended';
+        const defaultDp = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="%23ec4899"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
+        
+        let tagClass = 'tag-pending';
+        if (isApp) tagClass = 'tag-approved';
+        if (isSusp || p.status === 'Rejected') tagClass = 'tag-rejected';
+
+        return `
+          <div class="item-card" style="border-left:4px solid ${isApp ? '#16a34a' : (isSusp ? '#dc2626' : '#eab308')};">
+            
+            <div class="partner-mini-profile">
+              <img src="${p.profileImg || defaultDp}" class="partner-thumb" onclick="showDocModal('${p.profileImg}')" alt="Beautician DP" title="Tap to view DP full screen" />
+              <div style="flex:1;">
+                <div style="font-weight:bold; color:#f8fafc; font-size:13px;">${p.name} (${p.id})</div>
+                <div style="font-size:11px; color:#94a3b8;">📱 +91 ${p.phone} | Area: ${p.area}</div>
+              </div>
+              <span class="status-tag ${tagClass}">${p.status}</span>
+            </div>
+
+            <div class="kyc-box">
+              <div><b>Aadhaar No:</b> <span style="color:#38bdf8;">[Aadhaar Redacted]</span></div>
+              <div><b>PAN No:</b> <span style="color:#38bdf8;">${p.pan}</span></div>
+              <div><b>Documents Attached:</b> 
+                ${p.profileImg ? `<span class="doc-preview-link" onclick="showDocModal('${p.profileImg}')">👤 View DP</span> | ` : ''}
+                ${p.aadhaarImg ? `<span class="doc-preview-link" onclick="showDocModal('${p.aadhaarImg}')">📷 Aadhaar Photo</span> | ` : ''}
+                ${p.panImg ? `<span class="doc-preview-link" onclick="showDocModal('${p.panImg}')">📷 PAN Photo</span>` : ''}
+              </div>
+              <div style="margin-top:4px;"><b>Legal Agreement:</b> <span style="color:#4ade80;">✔ ${p.legalIndemnitySigned || 'Accepted'}</span></div>
+              <div><b>UPI:</b> ${p.upi} | <b>Exp:</b> ${p.exp}</div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+              <div>
+                ${!isApp ? `<button class="btn-approve" onclick="setPartnerStatus('${p.id}', 'Approved')">✔ Verify &amp; Approve</button>` : ''}
+                ${isApp ? `<button class="btn-reject" onclick="setPartnerStatus('${p.id}', 'Suspended')">Suspend</button>` : ''}
+                ${!isApp && !isSusp ? `<button class="btn-reject" onclick="setPartnerStatus('${p.id}', 'Rejected')">Reject</button>` : ''}
+              </div>
+              <a href="tel:${p.phone}" class="btn-secondary" style="background:#475569;"><i class="fa-solid fa-phone"></i> Call</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function loadOrdersList() {
+      const orders = JSON.parse(localStorage.getItem('rinzhu_orders')) || [];
+      const ordersContainer = document.getElementById('orders-list');
+      
+      if (orders.length === 0) {
+        ordersContainer.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; background:#1e293b; border-radius:10px;">Koi order nahi hai.</div>`;
+        return;
+      }
+
+      ordersContainer.innerHTML = orders.slice().reverse().map(o => {
+        const bill = Number(o.serviceBill) || 0;
+        return `
+          <div class="item-card">
+            <div class="item-top">
+              <span style="font-weight:bold; color:#ec4899;">${o.id}</span>
+              <span class="status-tag ${o.status === 'Completed' ? 'tag-approved' : 'tag-pending'}">${o.status}</span>
+            </div>
+            <p style="font-size:12px; color:#cbd5e1;"><b>Services:</b> ${o.services}</p>
+            <p style="font-size:12px; color:#cbd5e1;"><b>Customer Phone:</b> +91 ${o.customerPhone}</p>
+            <p style="font-size:12px; color:#cbd5e1;"><b>Bill Amount:</b> ₹${bill} | <b>Franchise Share (10%):</b> <span style="color:#38bdf8;">₹${Math.round(bill*0.10)}</span></p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setPartnerStatus(id, st) {
+      let partners = JSON.parse(localStorage.getItem('rinzhu_beauticians')) || [];
+      const item = partners.find(x => x.id === id);
+      if (item) {
+        item.status = st;
+        localStorage.setItem('rinzhu_beauticians', JSON.stringify(partners));
+        alert(`Partner status badal kar "${st}" kar diya gaya hai!`);
+        loadAdminDashboard();
+      }
+    }
+  </script>
+</body>
+</html>
