@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Rinzhu AI Support & Help</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: #f0f2f5; color: #1c1e21; height: 100vh; display: flex; flex-direction: column; }
+
+    /* Top Header */
+    header {
+      background: #ffffff;
+      padding: 12px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-size: 16px; font-weight: 700; color: #c2185b; display: flex; align-items: center; gap: 8px; }
+    .status-dot { width: 9px; height: 9px; background: #2e7d32; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px rgba(46,125,50,0.6); }
+    .back-btn { border: none; background: #fce4ec; color: #c2185b; padding: 6px 12px; border-radius: 18px; font-size: 13px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 4px; }
+
+    /* Direct Call Banner */
+    .call-banner {
+      background: #e8f5e9;
+      border-bottom: 1px solid #c8e6c9;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+    .call-btn {
+      background: #2e7d32;
+      color: white;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 4px rgba(46,125,50,0.2);
+    }
+
+    /* Chat Container */
+    .chat-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .msg-bubble {
+      max-width: 85%;
+      padding: 11px 15px;
+      border-radius: 18px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      word-wrap: break-word;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .msg-ai {
+      background: #ffffff;
+      color: #212529;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      border: 1px solid #e9ecef;
+    }
+    .msg-user {
+      background: #c2185b;
+      color: #ffffff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 2px 5px rgba(194,24,91,0.2);
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+      display: none;
+      align-self: flex-start;
+      background: #ffffff;
+      padding: 10px 16px;
+      border-radius: 18px;
+      border-bottom-left-radius: 4px;
+      border: 1px solid #e9ecef;
+      font-size: 12px;
+      color: #777;
+    }
+    .typing-indicator span {
+      height: 6px;
+      width: 6px;
+      float: left;
+      margin: 0 1px;
+      background-color: #9e9e9e;
+      display: block;
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: typing 1s infinite;
+    }
+    .typing-indicator span:nth-of-type(1) { animation-delay: 0s; }
+    .typing-indicator span:nth-of-type(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-of-type(3) { animation-delay: 0.4s; }
+    @keyframes typing {
+      0% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.4; transform: scale(1); }
+    }
+
+    /* Quick Suggestion Chips */
+    .chips-tray {
+      padding: 10px 14px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      white-space: nowrap;
+      background: #ffffff;
+      border-top: 1px solid #f0f0f0;
+      scrollbar-width: none;
+    }
+    .chips-tray::-webkit-scrollbar { display: none; }
+    .chip {
+      background: #fce4ec;
+      color: #c2185b;
+      border: 1px solid #f8bbd0;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chip:active { background: #c2185b; color: #fff; }
+
+    /* Input Footer */
+    .input-bar {
+      background: #ffffff;
+      padding: 12px 14px;
+      display: flex;
+      gap: 10px;
+      border-top: 1px solid #eee;
+    }
+    .input-box {
+      flex: 1;
+      padding: 10px 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 24px;
+      outline: none;
+      font-size: 13.5px;
+      background: #f8f9fa;
+    }
+    .input-box:focus { border-color: #c2185b; background: #fff; }
+    .btn-send {
+      background: #c2185b;
+      color: white;
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(194,24,91,0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: #0b1120;
+      color: #64748b;
+      text-align: center;
+      padding: 18px 16px;
+      font-size: 11px;
+      border-top: 1px solid #1e293b;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="back-btn">← Home</a>
+    <div class="logo">
+      <span>✦ Rinzhu AI Support</span>
+      <span class="status-dot"></span>
+    </div>
+    <span style="font-size:11px; color:#2e7d32; font-weight:600;">24x7 Active</span>
+  </header>
+
+  <!-- Emergency Support Call Strip -->
+  <div class="call-banner">
+    <div>
+      <b>Emergency or Critical Help?</b>
+      <div style="color:#555;">Call customer care directly</div>
+    </div>
+    <a href="tel:+919876543210" class="call-btn">📞 Call Now</a>
+  </div>
+
+  <!-- Chat History -->
+  <div class="chat-container" id="chat-box">
+    <div class="msg-bubble msg-ai">
+      Namaste! Main hoon <b>Rinzhu AI Assistant</b> 🌸<br>
+      Aapko salon service, booking, discount ya beautician ke baare me koi bhi jankari chahiye, to bejhijhak poochein.
+    </div>
+  </div>
+
+  <!-- Typing Indicator Placeholder -->
+  <div class="typing-indicator" id="typing-indicator" style="margin: 0 16px 8px 16px;">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- Quick Prompts -->
+  <div class="chips-tray">
+    <button class="chip" onclick="askQuick('Booking kaise karein?')">Booking kaise karein?</button>
+    <button class="chip" onclick="askQuick('Bundle Discount kya hai?')">Bundle Discount kya hai?</button>
+    <button class="chip" onclick="askQuick('Travel fare kitna lagta hai?')">Travel Fare kitna hai?</button>
+    <button class="chip" onclick="askQuick('Safety aur hygiene policy kya hai?')">Safety & Hygiene</button>
+    <button class="chip" onclick="askQuick('Refund policy kya hai?')">Refund Policy</button>
+    <button class="chip" onclick="askQuick('Mujhe customer care se baat karni hai')">Agent Call Support</button>
+  </div>
+
+  <!-- Input Area -->
+  <div class="input-bar">
+    <input type="text" id="query-input" class="input-box" placeholder="Apna sawal yahan likhein..." onkeypress="handleEnter(event)">
+    <button class="btn-send" onclick="sendUserMessage()">➤</button>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chat-box');
+    const inputField = document.getElementById('query-input');
+    const typingIndicator = document.getElementById('typing-indicator');
+
+    const SUPPORT_PHONE = "+919876543210";
+
+    // 📦 ARRAY-BASED FAQ DATABASE (Yahan aap jitne chahein utne naye Q&A add kar sakte hain)
+    const faqDatabase = [
+      {
+        keywords: ['call', 'phone', 'care', 'agent', 'baat', 'contact', 'number', 'helpline'],
+        response: `Aap humari customer support team se turant baat kar sakte hain:<br><br>
+          📞 <b>Helpline:</b> <a href="tel:${SUPPORT_PHONE}" style="color:#c2185b; font-weight:bold;">${SUPPORT_PHONE}</a><br>
+          (Timing: Subah 9:00 AM se Shaam 8:00 PM tak live agent available hain).`
+      },
+      {
+        keywords: ['book', 'booking', 'kaise', 'appointment', 'slot'],
+        response: `Rinzhu Beauty par booking karna bohot aasan hai:<br>
+          1. <b>Home</b> par apni manpasand services ko <b>+ Add</b> karein.<br>
+          2. <b>Cart</b> me jakar Date aur Preferred Time slot chunein.<br>
+          3. Apna Address aur GPS location verify karein aur <b>Confirm Booking</b> daba dein!<br>
+          Nearby verified beautician turant assign ho jayegi.`
+      },
+      {
+        keywords: ['discount', 'offer', 'chhoot', 'saver', 'coupon'],
+        response: `Humare paas <b>Multi-Service Saver Discount</b> uplabdh hai:<br>
+          • 2 services par = <b>5% OFF</b><br>
+          • 3-4 services par = <b>10% OFF</b><br>
+          • 5 ya usse zyada services par = <b>15% OFF</b><br>
+          Yeh discount cart me automatically jud jata hai!`
+      },
+      {
+        keywords: ['travel', 'fare', 'km', 'charge', 'petrol', 'visiting'],
+        response: `Humari salon service <b>10 km radius</b> ke andar provide ki jaati hai. Beautician ke aane-jaane ka fare <b>approx ₹3 per km (Round trip)</b> lagta hai, jisse beautician bina kisi dikkat ke aapke doorstep par pahunch sake.`
+      },
+      {
+        keywords: ['safety', 'hygiene', 'product', 'safe', 'cream', 'clean'],
+        response: `Aapki suraksha humari sabse badi prathmikta hai:<br>
+          • Sabhi beauticians verified hoti hain.<br>
+          • Har beautician se legal agreement aur genuine cosmetic products use karne ka bond sign hota hai.<br>
+          • Disposable gowns, sanitized kits aur sealed single-use packs ka istemal hota hai.`
+      },
+      {
+        keywords: ['payment', 'paisa', 'upi', 'cash', 'qr', 'pay', 'online'],
+        response: `Aap service complete hone ke baad beautician ke UPI QR code par scan karke (PhonePe, GPay, Paytm) ya cash ke zariye aasaani se payment kar sakte hain.`
+      },
+      {
+        keywords: ['cancel', 'late', 'change', 'time', 'reschedule'],
+        response: `Agar aapko booking cancel karni hai ya time slot badalna hai, to aap Bookings tab se manage kar sakte hain ya humare customer care <a href="tel:${SUPPORT_PHONE}" style="color:#c2185b; font-weight:bold;">${SUPPORT_PHONE}</a> par call kar sakte hain.`
+      },
+      {
+        keywords: ['refund', 'wapas', 'money back'],
+        response: `<b>Refund Policy:</b><br>
+          • Cancellation ke 24-48 ghante me refund aapke source account me credit ho jata hai.<br>
+          • Kisi bhi query ke liye humare customer support par sampark karein.`
+      },
+      {
+        keywords: ['timing', 'samay', 'open', 'hours', 'kab'],
+        response: `<b>Operating Hours:</b><br>
+          Humari services subah <b>9:00 AM se shaam 7:30 PM</b> tak sabhi din uplabdh hain.`
+      }
+      // ➕ Naye Questions add karne ke liye upar wala format copy-paste karein!
+    ];
+
+    function appendMessage(text, sender) {
+      const bubble = document.createElement('div');
+      bubble.className = `msg-bubble msg-${sender}`;
+      bubble.innerHTML = text;
+      chatBox.appendChild(bubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function handleEnter(e) {
+      if (e.key === 'Enter') sendUserMessage();
+    }
+
+    function askQuick(text) {
+      inputField.value = text;
+      sendUserMessage();
+    }
+
+    function sendUserMessage() {
+      const userText = inputField.value.trim();
+      if (!userText) return;
+
+      appendMessage(userText, 'user');
+      inputField.value = '';
+
+      // Show Typing Animation
+      typingIndicator.style.display = 'block';
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      setTimeout(() => {
+        typingIndicator.style.display = 'none';
+        const reply = generateAIResponse(userText);
+        appendMessage(reply, 'ai');
+      }, 700);
+    }
+
+    // Smart AI Knowledge Engine (Searches in faqDatabase Array)
+    function generateAIResponse(userQuery) {
+      const query = userQuery.toLowerCase();
+
+      // Array me se matching item dhoondna
+      const matchedFAQ = faqDatabase.find(faq => {
+        return faq.keywords.some(keyword => query.includes(keyword.toLowerCase()));
+      });
+
+      if (matchedFAQ) {
+        return matchedFAQ.response;
+      }
+
+      // Default Fallback Response
+      return `Main aapki baat samajh raha hoon. Kya aap is samasya ke baare me thoda vistaar se batayenge?<br><br>
+        Ya fir turant live agent se baat karne ke liye yahan tap karein: <a href="tel:${SUPPORT_PHONE}" style="color:#2e7d32; font-weight:bold;">📞 Call Customer Care</a>.`;
+    }
+  </script>
+
+  <!-- OFFICIAL INTEN AGENCY CORPORATE FOOTER -->
+  <footer>
+    <p style="color:#f8fafc; font-weight:800; font-size:12.5px; letter-spacing:0.5px; margin-bottom:4px;">
+      RINZHU BEAUTY &amp; WELLNESS
+    </p>
+    <p style="margin-bottom:4px; color:#94a3b8; font-size:11.5px;">
+      Owned and Managed by <b style="color:#cbd5e1;">Inten Agency</b>
+    </p>
+    <p style="color:#64748b; font-size:10.5px; margin-bottom:6px;">
+      Official Beneficiary: <b style="color:#cbd5e1;">INTEN AGENCY</b>
+    </p>
+    <div style="font-size:10px; color:#475569;">
+      <span>&copy; 2026 Inten Agency. All Rights Reserved.</span>
+    </div>
+  </footer>
+</body>
+</html>
