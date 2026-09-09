@@ -12,7 +12,7 @@
 
     header {
       background: #1e293b;
-      padding: 12px 18px;
+      padding: 10px 14px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -21,8 +21,48 @@
       align-items: center;
       border-bottom: 1px solid #334155;
     }
-    .brand-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .header-right { display: flex; align-items: center; gap: 8px; }
+    .brand-wrap { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .header-right { display: flex; align-items: center; gap: 6px; }
+
+    /* 3D Glossy Owner Avatar Style */
+    .owner-avatar-container {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: linear-gradient(135deg, #fbbf24, #ec4899);
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.5);
+      flex-shrink: 0;
+    }
+    .owner-avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #000;
+    }
+    .owner-avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .owner-crown-badge {
+      position: absolute;
+      top: -5px;
+      right: -3px;
+      background: #fbbf24;
+      color: #0f172a;
+      font-size: 9px;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
 
     .user-pill {
       background: #064e3b;
@@ -38,9 +78,9 @@
       background: #0284c7;
       color: #fff;
       border: none;
-      padding: 7px 12px;
+      padding: 7px 10px;
       border-radius: 6px;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -53,14 +93,14 @@
       background: rgba(236, 72, 153, 0.15);
       color: #f472b6;
       border: 1px solid #be185d;
-      padding: 6px 11px;
+      padding: 6px 10px;
       border-radius: 6px;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       white-space: nowrap;
       transition: all 0.2s;
     }
@@ -327,26 +367,20 @@
 
   <header>
     <div class="brand-wrap">
-      <!-- Premium Detailed Girl Salon Logo SVG -->
-      <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0; filter: drop-shadow(0 2px 6px rgba(236,72,153,0.4));">
-        <circle cx="50" cy="50" r="48" fill="#1e1b4b" stroke="#ec4899" stroke-width="4"/>
-        <!-- Elegant Hair & Face Silhouette -->
-        <path d="M30 75 C30 55, 38 45, 50 45 C62 45, 70 55, 70 75 Z" fill="#ec4899" opacity="0.3"/>
-        <path d="M35 78 C38 60, 44 52, 50 52 C56 52, 62 60, 65 78 Z" fill="#ec4899"/>
-        <!-- Face Profile / Jaw -->
-        <path d="M44 48 C44 41, 47 36, 53 36 C59 36, 62 41, 62 48" stroke="#fbcfe8" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <!-- Stylish Hair Flow & Crown -->
-        <path d="M28 65 C26 45, 35 30, 50 28 C65 30, 74 45, 72 65 C68 55, 60 40, 50 40 C40 40, 32 55, 28 65 Z" fill="#f472b6"/>
-        <circle cx="50" cy="22" r="8" fill="#fbbf24"/>
-        <path d="M46 22 L54 22 M50 18 L50 26" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+      <!-- 3D Glossy Face Avatar with Golden Crown -->
+      <div class="owner-avatar-container">
+        <div class="owner-avatar-inner">
+          <img src="1000008798.jpg" alt="Rinzhu Beauty Founder">
+        </div>
+        <div class="owner-crown-badge">👑</div>
+      </div>
 
       <div style="display:flex; flex-direction:column; justify-content:center;">
         <div style="display:flex; align-items:baseline; gap:5px; line-height:1;">
-          <span style="font-size:18px; font-weight:900; color:#ec4899; letter-spacing:1px; text-shadow:0 0 10px rgba(236,72,153,0.3);">RINZHU</span>
-          <span style="font-size:13.5px; font-weight:700; color:#f8fafc; letter-spacing:1.8px;">BEAUTY</span>
+          <span style="font-size:17px; font-weight:900; color:#ec4899; letter-spacing:1px; text-shadow:0 0 10px rgba(236,72,153,0.3);">RINZHU</span>
+          <span style="font-size:13px; font-weight:700; color:#f8fafc; letter-spacing:1.5px;">BEAUTY</span>
         </div>
-        <span style="font-size:9.5px; font-weight:600; color:#38bdf8; letter-spacing:0.4px; margin-top:3px;">
+        <span style="font-size:9px; font-weight:600; color:#38bdf8; letter-spacing:0.3px; margin-top:2px;">
           A Unit of Inten Agency
         </span>
       </div>
