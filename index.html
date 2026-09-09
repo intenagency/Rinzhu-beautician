@@ -21,7 +21,7 @@
       align-items: center;
       border-bottom: 1px solid #334155;
     }
-    .brand-wrap { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .brand-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .header-right { display: flex; align-items: center; gap: 8px; }
 
     .user-pill {
@@ -327,19 +327,20 @@
 
   <header>
     <div class="brand-wrap">
+      <!-- सुंदर महिला/सैलून ब्यूटीशियन वाला नया SVG लोगो -->
       <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
         <defs>
-          <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="girlGlow" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#f43f5e" />
             <stop offset="100%" stop-color="#ec4899" />
           </linearGradient>
         </defs>
-        <circle cx="50" cy="50" r="46" fill="#111827" stroke="url(#glowGrad)" stroke-width="3.5"/>
-        <circle cx="50" cy="50" r="39" stroke="#f43f5e" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
-        <path d="M50 18 C41 36, 41 58, 50 72 C59 58, 59 36, 50 18 Z" fill="url(#glowGrad)"/>
-        <path d="M50 42 C34 42, 22 52, 26 68 C34 72, 45 67, 50 58 Z" fill="#ec4899" opacity="0.9"/>
-        <path d="M50 42 C66 42, 78 52, 74 68 C66 72, 55 67, 50 58 Z" fill="#ec4899" opacity="0.9"/>
-        <path d="M32 72 C44 80, 56 80, 68 72 C63 82, 37 82, 32 72 Z" fill="#fbbf24"/>
+        <circle cx="50" cy="50" r="46" fill="#111827" stroke="url(#girlGlow)" stroke-width="3.5"/>
+        <path d="M50 22 C35 22, 28 35, 28 50 C28 65, 36 78, 50 78 C64 78, 72 65, 72 50 C72 35, 65 22, 50 22 Z" fill="url(#girlGlow)" opacity="0.2"/>
+        <path d="M50 28 C40 28, 33 36, 33 48 C33 55, 36 62, 41 68 C43 62, 46 58, 50 58 C54 58, 57 62, 59 68 C64 62, 67 55, 67 48 C67 36, 60 28, 50 28 Z" fill="url(#girlGlow)"/>
+        <circle cx="50" cy="23" r="10" fill="#fbbf24"/>
+        <path d="M74 30 L76 35 L81 37 L76 39 L74 44 L72 39 L67 37 L72 35 Z" fill="#38bdf8"/>
+        <path d="M22 65 L23 68 L26 69 L23 70 L22 73 L21 70 L18 69 L21 68 Z" fill="#fbbf24"/>
       </svg>
 
       <div style="display:flex; flex-direction:column; justify-content:center;">
@@ -693,7 +694,7 @@
 
     function handleCheckoutClick() {
       if (cart.length === 0) {
-        alert("Kripya pehle kam से kam ek service select karein!");
+        alert("Kripya pehle kam se kam ek service select karein!");
         return;
       }
       const verifiedPhone = localStorage.getItem('rinzhu_verified_customer');
@@ -834,7 +835,7 @@
       const phone = document.getElementById('cust-phone-input').value.trim();
       const address = document.getElementById('cust-address-input').value.trim();
       const gpsLink = document.getElementById('cust-gps-link').value;
-      const latVal = document.getElementById('cust-lat').value;
+      const latVal = document.getElementById('cust-lat.value') || document.getElementById('cust-lat').value;
       const lngVal = document.getElementById('cust-lng').value;
       
       const custLat = latVal !== "" ? parseFloat(latVal) : null;
