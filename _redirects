@@ -1,4 +1,8 @@
 /superadmin    /superadmin.html    200
 /admin         /admin.html         200
 /beautician    /beautician.html    200
+/franchise     /franchise.html     200
+/franchise-kit /franchise-kit.html 200
+/beautician-pitch /beautician-pitch.html 200
+
 /*             /index.html         200
