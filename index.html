@@ -327,20 +327,12 @@
 
   <header>
     <div class="brand-wrap">
-      <!-- सुंदर महिला/सैलून ब्यूटीशियन वाला नया SVG लोगो -->
+      <!-- Fixed Clean SVG Logo -->
       <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-        <defs>
-          <linearGradient id="girlGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#f43f5e" />
-            <stop offset="100%" stop-color="#ec4899" />
-          </linearGradient>
-        </defs>
-        <circle cx="50" cy="50" r="46" fill="#111827" stroke="url(#girlGlow)" stroke-width="3.5"/>
-        <path d="M50 22 C35 22, 28 35, 28 50 C28 65, 36 78, 50 78 C64 78, 72 65, 72 50 C72 35, 65 22, 50 22 Z" fill="url(#girlGlow)" opacity="0.2"/>
-        <path d="M50 28 C40 28, 33 36, 33 48 C33 55, 36 62, 41 68 C43 62, 46 58, 50 58 C54 58, 57 62, 59 68 C64 62, 67 55, 67 48 C67 36, 60 28, 50 28 Z" fill="url(#girlGlow)"/>
-        <circle cx="50" cy="23" r="10" fill="#fbbf24"/>
-        <path d="M74 30 L76 35 L81 37 L76 39 L74 44 L72 39 L67 37 L72 35 Z" fill="#38bdf8"/>
-        <path d="M22 65 L23 68 L26 69 L23 70 L22 73 L21 70 L18 69 L21 68 Z" fill="#fbbf24"/>
+        <circle cx="50" cy="50" r="46" fill="#111827" stroke="#ec4899" stroke-width="3.5"/>
+        <path d="M50 25 C38 25, 32 36, 32 48 C32 60, 40 72, 50 72 C60 72, 68 60, 68 48 C68 36, 62 25, 50 25 Z" fill="#ec4899" opacity="0.2"/>
+        <path d="M50 30 C41 30, 35 37, 35 48 C35 54, 38 60, 42 65 C44 60, 47 57, 50 57 C53 57, 56 60, 58 65 C62 60, 65 54, 65 48 C65 37, 59 30, 50 30 Z" fill="#ec4899"/>
+        <circle cx="50" cy="24" r="10" fill="#fbbf24"/>
       </svg>
 
       <div style="display:flex; flex-direction:column; justify-content:center;">
@@ -835,7 +827,7 @@
       const phone = document.getElementById('cust-phone-input').value.trim();
       const address = document.getElementById('cust-address-input').value.trim();
       const gpsLink = document.getElementById('cust-gps-link').value;
-      const latVal = document.getElementById('cust-lat.value') || document.getElementById('cust-lat').value;
+      const latVal = document.getElementById('cust-lat').value;
       const lngVal = document.getElementById('cust-lng').value;
       
       const custLat = latVal !== "" ? parseFloat(latVal) : null;
