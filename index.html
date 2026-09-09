@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ec4899">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ec4899">
   <title>Rinzhu Beauty - Doorstep Salon &amp; Bridal Studio</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
@@ -49,7 +49,6 @@
       white-space: nowrap;
     }
 
-    /* Header AI Chat Support Link */
     .btn-ai-header {
       background: rgba(236, 72, 153, 0.15);
       color: #f472b6;
@@ -69,7 +68,6 @@
 
     .container { max-width: 600px; margin: 0 auto; padding: 14px; }
 
-    /* Live Rating Banner for Customer */
     #customer-rating-alert {
       display: none;
       background: linear-gradient(135deg, #16a34a, #065f46);
@@ -183,7 +181,6 @@
     }
     .btn-add:hover { background: #be185d; }
 
-    /* Floating Cart Drawer Bar */
     .cart-float {
       position: fixed;
       bottom: 50px;
@@ -211,7 +208,6 @@
       cursor: pointer;
     }
 
-    /* Floating AI Chat Button */
     .floating-ai-btn {
       position: fixed;
       bottom: 105px;
@@ -236,7 +232,6 @@
       50% { transform: translateY(-4px); }
     }
 
-    /* Mobile Bottom Navigation Bar */
     .bottom-app-nav {
       position: fixed;
       bottom: 0;
@@ -371,7 +366,6 @@
 
   <div class="container">
 
-    <!-- LIVE RATING NOTIFICATION BANNER -->
     <div id="customer-rating-alert">
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:24px;">🎉</span>
@@ -699,7 +693,7 @@
 
     function handleCheckoutClick() {
       if (cart.length === 0) {
-        alert("Kripya pehle kam se kam ek service select karein!");
+        alert("Kripya pehle kam से kam ek service select karein!");
         return;
       }
       const verifiedPhone = localStorage.getItem('rinzhu_verified_customer');
