@@ -1,15 +1,15 @@
 {
-  "name": "Rinzhu Beauty Partner",
-  "short_name": "Rinzhu",
-  "start_url": "partner.html",
+  "name": "Rinzhu Beauty Studio",
+  "short_name": "RinzhuBeauty",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#ec4899",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3011/3011270.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
     }
   ]
 }
